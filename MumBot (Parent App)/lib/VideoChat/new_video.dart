@@ -16,6 +16,7 @@ class NewVideo extends StatefulWidget {
 class _NewTransactionState extends State<NewVideo> {
   DateTime _selectedDate;
   DateTime _selectedTime;
+  DateTime _printday;
 
   void _submitData() {
     if (_selectedDate == null || _selectedTime == null) {
@@ -122,6 +123,7 @@ class _NewTransactionState extends State<NewVideo> {
                   ],
                 ),
               ),
+
               Container(
                 height: 70,
                 child: Row(

@@ -13,6 +13,7 @@ import './screens/user_panel_screen.dart';
 import 'package:watson_assistant_v2/watson_assistant_v2.dart';
 
 import './widgets/chatting_bubble.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
