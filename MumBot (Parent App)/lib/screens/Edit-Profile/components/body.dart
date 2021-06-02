@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mumbot_v2/screens/Edit-Password/editpassword_screen.dart';
-import 'package:mumbot_v2/screens/Login/login_screen.dart';
 
 import 'package:mumbot_v2/screens/Signup/components/or_divider.dart';
-import 'package:mumbot_v2/screens/components/already_have_an_account_acheck.dart';
 import 'package:mumbot_v2/screens/components/rounded_button.dart';
 import 'package:mumbot_v2/screens/components/rounded_input_field.dart';
-import 'package:mumbot_v2/screens/components/rounded_password_field.dart';
 import 'package:mumbot_v2/screens/user_panel_screen.dart';
 
 class Body extends StatelessWidget {

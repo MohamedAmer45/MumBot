@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -114,6 +112,7 @@ class _NewTransactionState extends State<NewVideo> {
                           ? 'No date chosen'
                           : 'Picked Date : ${DateFormat.yMd().format(_selectedDate)}'),
                     ),
+                    // ignore: deprecated_member_use
                     FlatButton(
                       onPressed: () {
                         _presentDatePicker();
@@ -132,6 +131,7 @@ class _NewTransactionState extends State<NewVideo> {
                           ? 'No Time'
                           : 'Picked Hour : ${DateFormat.H().format(_selectedTime)}'),
                     ),
+                    // ignore: deprecated_member_use
                     FlatButton(
                       onPressed: () {
                         _presentTimePicker();

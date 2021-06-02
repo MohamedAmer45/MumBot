@@ -3,7 +3,6 @@ import 'package:mumbot_v2/VideoChat/index.dart';
 import 'package:mumbot_v2/screens/Book-Inquiry/BookInquiry_screen.dart';
 import 'package:mumbot_v2/screens/Edit-Profile/editProfile_screen.dart';
 import 'package:mumbot_v2/screens/Login/login_screen.dart';
-import 'package:mumbot_v2/screens/chat_screen.dart';
 import '../main.dart';
 import '../widgets/panel_cards.dart';
 

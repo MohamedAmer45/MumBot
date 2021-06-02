@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mumbot_v2/screens/Login/components/or_divider.dart';
 
 import 'package:mumbot_v2/screens/Signup/signup_screen.dart';

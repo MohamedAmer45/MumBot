@@ -2,7 +2,6 @@ import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mumbot_v2/VideoChat/call.dart';
-import 'package:mumbot_v2/screens/components/rounded_button.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../models/transaction.dart';
@@ -25,7 +24,7 @@ class _VideoListState extends State<VideoList> {
               children: [
                 Text(
                   'No Sessions Yet!',
-                  style: Theme.of(context).textTheme.title,
+                  style: Theme.of(context).textTheme.headline6,
                 ),
                 SizedBox(
                   height: 20,

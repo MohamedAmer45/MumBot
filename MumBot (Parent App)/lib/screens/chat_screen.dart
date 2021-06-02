@@ -68,10 +68,12 @@ class _MyHomePageState extends State<ChatScreen> {
       builder: (context) => AlertDialog(
         title: Text("Are you sure you want to end the chat session ?"),
         actions: [
+          // ignore: deprecated_member_use
           FlatButton(
             onPressed: () => Navigator.pop(context, true),
             child: Text("Yes"),
           ),
+          // ignore: deprecated_member_use
           FlatButton(
               onPressed: () => Navigator.pop(context, false),
               child: Text("No")),

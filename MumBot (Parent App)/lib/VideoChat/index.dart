@@ -1,18 +1,11 @@
-import 'dart:async';
-
 import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:mumbot_v2/VideoChat/new_video.dart';
 import 'package:mumbot_v2/VideoChat/video_list.dart';
 import 'package:mumbot_v2/models/transaction.dart';
-import 'package:mumbot_v2/screens/Book-Session/BookSession_screen.dart';
 import 'package:mumbot_v2/screens/Login/components/or_divider.dart';
 import 'package:mumbot_v2/screens/components/rounded_button.dart';
 import 'package:mumbot_v2/screens/user_panel_screen.dart';
-import 'package:mumbot_v2/widgets/panel_cards.dart';
-import 'package:permission_handler/permission_handler.dart';
-
-import './call.dart';
 
 class IndexPage extends StatefulWidget {
   static const routeName = '/video-screen';
