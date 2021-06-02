@@ -16,7 +16,6 @@ class NewVideo extends StatefulWidget {
 class _NewTransactionState extends State<NewVideo> {
   DateTime _selectedDate;
   DateTime _selectedTime;
-  DateTime _printday;
 
   void _submitData() {
     if (_selectedDate == null || _selectedTime == null) {
@@ -29,6 +28,8 @@ class _NewTransactionState extends State<NewVideo> {
     Navigator.of(context).pushNamed(BookSessionScreen.routeName);
 
     widget.addTx(_selectedDate, _selectedTime);
+    //print(DateFormat.Hm().format(_selectedTime));
+    //print(DateFormat.H().format(_selectedTime));
   }
 
   void _presentDatePicker() {

@@ -15,7 +15,6 @@ class ParentProvider with ChangeNotifier {
     return [..._parents];
   }
 
-//hi
   void addUser(Parent parent) async {
     final response = await http.post('http://10.0.2.2:8000/api/parent/create/',
         headers: {"Content-Type": "application/json"},
@@ -42,7 +41,7 @@ class ParentProvider with ChangeNotifier {
     final response = await http.get(url);
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
-      _parents = data.map<User>((json) => User.fromJson(json)).toList();
+      _parents = data.map<Parent>((json) => Parent.fromJson(json)).toList();
       notifyListeners();
     }
   }
