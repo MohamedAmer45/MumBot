@@ -2,32 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mumbot_v2/api/parent_api.dart';
 import 'package:mumbot_v2/models/parent.dart';
 import 'package:mumbot_v2/screens/Edit-Password/editpassword_screen.dart';
+import 'package:mumbot_v2/screens/Edit-Profile/editProfile_screen.dart';
 
 import 'package:mumbot_v2/screens/Signup/components/or_divider.dart';
 import 'package:mumbot_v2/screens/components/rounded_button.dart';
 import 'package:mumbot_v2/screens/components/rounded_input_field.dart';
-import 'package:mumbot_v2/screens/user_panel_screen.dart';
-import 'package:http/http.dart' as http;
+
 import 'dart:async';
-import 'dart:convert';
-
-// Future<Parent> fetchParent() async {
-//   final response =
-//       await http.get(Uri.parse('http://10.0.2.2:8000/apis/api/parent/6/'));
-
-//   if (response.statusCode == 200) {
-//     // If the server did return a 200 OK response,
-//     // then parse the JSON.
-//     print('200');
-//     return Parent.fromJson(jsonDecode(response.body));
-//   } else {
-//     // If the server did not return a 200 OK response,
-//     // then throw an exception.
-//     print('404');
-
-//     throw Exception('Failed to load parent');
-//   }
-// }
 
 class Body extends StatefulWidget {
   @override
@@ -36,16 +17,18 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   Future<Parent> fetchParent;
-  //Future<Parent> updateParent;
-  final TextEditingController _nameController = new TextEditingController();
-  final TextEditingController _emailController = new TextEditingController();
-  final TextEditingController _phoneController = new TextEditingController();
+
+  TextEditingController _initialNameController = new TextEditingController();
+  TextEditingController _finalNameController = new TextEditingController();
+  TextEditingController _initialEmailController = new TextEditingController();
+  TextEditingController _finalEmailController = new TextEditingController();
+  TextEditingController _initialPhoneController = new TextEditingController();
+  TextEditingController _finalPhoneController = new TextEditingController();
 
   @override
   void initState() {
     super.initState();
     fetchParent = ParentAPI().fetchParent(Parent(id: 6));
-    //updateParent = ParentAPI().updateParent(Parent(id: 6));
   }
 
   @override
@@ -56,10 +39,6 @@ class _BodyState extends State<Body> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SizedBox(height: size.height * 0.08),
-          // Image.asset(
-          //   "assets/MumBot3.png",
-          //   height: size.height * 0.25,
-          // ),
           Text(
             "Edit Your Profile",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21.5),
@@ -69,13 +48,14 @@ class _BodyState extends State<Body> {
             future: fetchParent,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                _initialNameController.text = snapshot.data.name;
                 return RoundedInputField(
-                  hintText: snapshot.data.name,
-                  controller: _nameController,
-                  onChanged: (value) {
-                    print(_nameController.text);
-                  },
-                  //initialValue: snapshot.data.name,
+                  hintText: 'Name',
+                  controller: _finalNameController =
+                      _finalNameController.text.isEmpty
+                          ? _initialNameController
+                          : _finalNameController,
+                  onChanged: (_) {},
                 );
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
@@ -89,12 +69,15 @@ class _BodyState extends State<Body> {
             future: fetchParent,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                _initialEmailController.text = snapshot.data.email;
                 return RoundedInputField(
-                  hintText: snapshot.data.email,
-                  controller: _emailController,
+                  hintText: 'Email',
+                  controller: _finalEmailController =
+                      _finalEmailController.text.isEmpty
+                          ? _initialEmailController
+                          : _finalEmailController,
                   icon: Icons.email,
                   onChanged: (value) {},
-                  // initialValue: snapshot.data.email,
                 );
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
@@ -104,14 +87,18 @@ class _BodyState extends State<Body> {
               return CircularProgressIndicator();
             },
           ),
-
           FutureBuilder<Parent>(
             future: fetchParent,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                _initialPhoneController.text = snapshot.data.phone;
+
                 return RoundedInputField(
-                  hintText: snapshot.data.phone,
-                  controller: _phoneController,
+                  hintText: 'Phone',
+                  controller: _finalPhoneController =
+                      _finalPhoneController.text.isEmpty
+                          ? _initialPhoneController
+                          : _finalPhoneController,
                   icon: Icons.phone,
                   onChanged: (value) {},
                   //initialValue: snapshot.data.phone,
@@ -124,7 +111,6 @@ class _BodyState extends State<Body> {
               return CircularProgressIndicator();
             },
           ),
-
           SizedBox(height: size.height * 0.1),
           RoundedButton(
             text: "Edit Password",
@@ -132,7 +118,6 @@ class _BodyState extends State<Body> {
               Navigator.of(context).pushNamed(EditPasswordScreen.routeName);
             },
           ),
-
           FutureBuilder<Parent>(
             future: fetchParent,
             builder: (context, snapshot) {
@@ -144,11 +129,12 @@ class _BodyState extends State<Body> {
                       setState(() {
                         fetchParent = ParentAPI().updateParent(
                             6,
-                            _nameController.text,
-                            _emailController.text,
-                            _phoneController.text);
+                            _finalNameController.text,
+                            _finalEmailController.text,
+                            _finalPhoneController.text);
                       });
-                      //Navigator.of(context).pushNamed(UserPanelScreen.routeName);
+                      Navigator.of(context)
+                          .pushReplacementNamed(EditProfileScreen.routeName);
                     },
                   );
                 } else if (snapshot.hasError) {
@@ -159,36 +145,7 @@ class _BodyState extends State<Body> {
               return CircularProgressIndicator();
             },
           ),
-          // RoundedButton(
-          //   text: "Save Changes",
-
-          //   press: () {
-          //     FutureBuilder<Parent>(
-          //       future: fetchParent,
-          //       builder: (context, snapshot) {
-          //         if (snapshot.connectionState == ConnectionState.done) {
-          //           if (snapshot.hasData) {
-          //             setState(() {
-          //               //fetchParent =
-          //               ParentAPI().updateParent(Parent(
-          //                   name: _nameController.text,
-          //                   email: _emailController.text,
-          //                   phone: _phoneController.text));
-          //             });
-          //           } else if (snapshot.hasError) {
-          //             return Text('${snapshot.error}');
-          //           }
-          //         }
-
-          //         return CircularProgressIndicator();
-          //       },
-          //     );
-
-          //     //Navigator.of(context).pushNamed(UserPanelScreen.routeName);
-
-          //   },
-          // ),
-          // SizedBox(height: size.height * 0.01),
+          SizedBox(height: size.height * 0.01),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
           )

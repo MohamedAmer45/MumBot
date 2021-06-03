@@ -23,7 +23,8 @@ final appBar = AppBar(
         PopupMenuItem(
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed(EditProfileScreen.routeName);
+              Navigator.of(context)
+                  .pushReplacementNamed(EditProfileScreen.routeName);
             },
             child: Row(
               children: [
