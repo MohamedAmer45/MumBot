@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mumbot_v2/api/parent_api.dart';
 import 'package:mumbot_v2/models/parent.dart';
 import 'package:mumbot_v2/screens/Login/login_screen.dart';
@@ -80,6 +81,10 @@ class _BodyState extends State<Body> {
                 } else if (value.length < 2) {
                   return ShortNameError;
                 }
+                //  else if (!nameValidator.hasMatch(value)) {
+                //   return NameNullError;
+                // }
+
                 return null;
               },
               onChanged: (value) {},
@@ -87,6 +92,16 @@ class _BodyState extends State<Body> {
             RoundedInputField(
               hintText: "Email",
               icon: Icons.email,
+              autovalidate: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return EmailNullError;
+                } else if (!emailValidator.hasMatch(value)) {
+                  return InvalidEmailError;
+                }
+
+                return null;
+              },
               controller: _emailController,
               onChanged: (value) {},
             ),
@@ -94,12 +109,39 @@ class _BodyState extends State<Body> {
               hintText: "Phone",
               icon: Icons.phone,
               controller: _phoneController,
+              // ignore: deprecated_member_use
+              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+              autovalidate: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return PhoneNumberNullError;
+                } else if (value.length < 7) {
+                  return ShortPhoneNumberError;
+                } else if (value.length > 15) {
+                  return LongPhoneNumberError;
+                }
+                // else if (!phoneValidator.hasMatch(value)) {
+                //   return InvalidPhoneNumberError;
+                // }
+                return null;
+              },
               onChanged: (value) {},
             ),
             RoundedPasswordField(
               hintText: 'Password',
               controller: _passwordController,
               onsaved: (newValue) => password = newValue,
+              autovalidate: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return PassNullError;
+                } else if (value.length < 8) {
+                  return ShortPassError;
+                } else if (value.length > 32) {
+                  return LongPassError;
+                }
+                return null;
+              },
               onChanged: (value) {
                 password = value;
               },
