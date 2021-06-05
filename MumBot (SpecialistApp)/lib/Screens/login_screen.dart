@@ -86,7 +86,6 @@ class _LoginScreenState extends State<LoginScreen> {
         specialistLoginData = jsonDecode(response.body) as Map<String, dynamic>;
         Navigator.of(context).pushReplacementNamed(HomePage.routeName);
       } else {
-        Navigator.of(context).pushReplacementNamed(HomePage.routeName);
         ScaffoldMessenger.of(context).showSnackBar(loginSnackBar);
         print(response.statusCode);
         throw Exception('Failed to login parent.');
@@ -142,6 +141,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 });
               },
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+            )
           ],
         ),
       ),
