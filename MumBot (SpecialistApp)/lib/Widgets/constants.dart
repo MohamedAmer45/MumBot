@@ -9,6 +9,7 @@ final RegExp phoneValidator = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
 const String EmailNullError = "Please Enter your email";
 const String InvalidEmailError = "Please Enter Valid Email";
 const String PassNullError = "Please Enter Your Password";
+const String AnswerNullError = "Enter a Valid Answer";
 const String ShortPassError = "Password is Too Short";
 const String LongPassError = "Password is Too Long";
 const String MatchPassError = "Passwords Don't Match";

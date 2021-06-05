@@ -35,6 +35,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
     fetchSpecialist = SpecialistAPI()
         .fetchSpecialist(Specialist(id: specialistLoginData['id']));
+
     _initialNameController.text = specialistLoginData['user_name'];
     _initialEmailController.text = specialistLoginData['user_email'];
     _initialPhoneController.text = specialistLoginData['user_phone'];

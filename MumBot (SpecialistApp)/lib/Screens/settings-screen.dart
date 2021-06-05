@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:parenting_specialist/Screens/home_page.dart';
+import 'package:parenting_specialist/Screens/login_screen.dart';
 import 'package:parenting_specialist/widgets/LineDivider.dart';
 import 'package:parenting_specialist/widgets/rounded_button.dart';
 
@@ -31,7 +32,7 @@ class SettingScreen extends StatelessWidget {
           RoundedButton(
             text: "Log Out",
             press: () {
-              Navigator.of(context).pushNamed(HomePage.routeName);
+              Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
             },
           ),
           // SizedBox(height: size.height * 0.01),

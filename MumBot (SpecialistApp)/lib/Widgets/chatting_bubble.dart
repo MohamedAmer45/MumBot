@@ -12,7 +12,7 @@ Widget chattingBubble(String message, int data) {
                 height: 60,
                 width: 60,
                 child: CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/MumBot3.png"),
+                  backgroundImage: AssetImage("assets/images/Specialist.png"),
                 ),
               )
             : Container(),

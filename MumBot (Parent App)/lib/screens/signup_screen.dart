@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mumbot_v2/api/parent_api.dart';
 import 'package:mumbot_v2/models/parent.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:mumbot_v2/widgets/already_have_an_account_acheck.dart';
 import 'package:mumbot_v2/widgets/constants.dart';
@@ -45,6 +46,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _signupEmailFocus = FocusNode();
   final _signupPhoneFocus = FocusNode();
   final _signupPasswordFocus = FocusNode();
+  final signUpSnackBar = SnackBar(
+    content: Text(
+      'Email or Phone Already Exists',
+      textAlign: TextAlign.center,
+    ),
+    backgroundColor: Color(0XFFDA0000),
+    duration: Duration(seconds: 5),
+    elevation: 7,
+  );
 
   @override
   void dispose() {
@@ -62,19 +72,43 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String phone;
   String name;
   final List<String> errors = [];
+  bool checkParentEmail = false;
+  bool checkParentPhone = false;
 
-  void addError({String error}) {
-    if (!errors.contains(error))
-      setState(() {
-        errors.add(error);
-      });
+  Future<Parent> checkEmail(String email) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:8000/apis/api/existingemail/parent/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'user_email': email,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      checkParentEmail = true;
+    } else {
+      checkParentEmail = false;
+    }
   }
 
-  void removeError({String error}) {
-    if (errors.contains(error))
-      setState(() {
-        errors.remove(error);
-      });
+  Future<Parent> checkPhone(String phone) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:8000/apis/api/existingphone/parent/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'user_phone': phone,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      checkParentPhone = true;
+    } else {
+      checkParentPhone = false;
+    }
   }
 
   @override
@@ -218,17 +252,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 press: () {
                   if (_signupFormKey.currentState.validate()) {
                     _signupFormKey.currentState.save();
-                    // if all are valid then go to success screen
                     setState(() {
-                      _addParent = ParentAPI().addParent(
-                        _nameController.text,
-                        _emailController.text,
-                        _phoneController.text,
-                        generateMd5Signup(_passwordController.text),
-                      );
+                      checkEmail(_emailController.text);
+                      checkPhone(_phoneController.text);
                     });
-                    Navigator.of(context)
-                        .pushReplacementNamed(UserPanelScreen.routeName);
+                    if (checkParentEmail && checkParentPhone) {
+                      setState(() {
+                        _addParent = ParentAPI().addParent(
+                          _nameController.text,
+                          _emailController.text,
+                          _phoneController.text,
+                          generateMd5Signup(_passwordController.text),
+                        );
+                      });
+                      Navigator.of(context)
+                          .pushReplacementNamed(UserPanelScreen.routeName);
+                    } else {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(signUpSnackBar);
+                    }
                   }
                 },
               ),

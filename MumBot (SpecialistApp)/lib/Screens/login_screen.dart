@@ -133,10 +133,13 @@ class _LoginScreenState extends State<LoginScreen> {
             RoundedButton(
               text: "LOGIN",
               press: () {
+                print(_emailController.text);
+                print(generateMd5Login(_passwordController.text));
                 setState(() {
                   _loginSpecialist = loginSpecialist(
                     _emailController.text,
-                    generateMd5Login(_passwordController.text),
+                    _passwordController.text,
+                    // generateMd5Login(_passwordController.text),
                   );
                 });
               },

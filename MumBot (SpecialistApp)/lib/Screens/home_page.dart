@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:parenting_specialist/Screens/forum_screen.dart';
+import 'package:parenting_specialist/Screens/login_screen.dart';
 import 'package:parenting_specialist/Screens/schedule-screen.dart';
 import 'package:parenting_specialist/Screens/settings-screen.dart';
+import 'package:parenting_specialist/api/specialist_api.dart';
 import '../Screens/user_panel_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -44,7 +46,22 @@ class _HomePageState extends State<HomePage> {
               ),
               Switch(
                 value: isSwitched,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  if (isSwitched) {
+                    setState(() {
+                      isSwitched = false;
+                      SpecialistAPI().updateSpecialistStatus(
+                          specialistLoginData['id'], isSwitched);
+                    });
+                  } else {
+                    setState(() {
+                      isSwitched = true;
+                      SpecialistAPI().updateSpecialistStatus(
+                          specialistLoginData['id'], isSwitched);
+                    });
+                  }
+                },
+                activeColor: Colors.green,
               ),
             ],
           )

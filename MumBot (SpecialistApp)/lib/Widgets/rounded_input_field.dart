@@ -19,10 +19,12 @@ class RoundedInputField extends StatelessWidget {
   final FocusNode focusNode;
   final Function(String) onFieldSubmitted;
   final TextInputAction textInputAction;
+  final int maxLines;
 
   const RoundedInputField(
       {Key key,
       this.hintText,
+      this.maxLines,
       this.icon = Icons.person,
       this.onChanged,
       this.controller,
@@ -42,6 +44,7 @@ class RoundedInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextFormField(
+        maxLines: maxLines,
         inputFormatters: inputFormatters,
         maxLengthEnforcement: maxLengthEnforcement,
         maxLength: maxLength,

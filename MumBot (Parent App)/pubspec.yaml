@@ -39,7 +39,6 @@ dev_dependencies:
 
 flutter:
   assets:
-    - assets/db.sqlite3
     - assets/images/MumBot3.png
     - assets/images/Specialist.png
     - assets/images/Video.jpg
