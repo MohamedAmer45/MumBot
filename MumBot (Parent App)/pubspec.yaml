@@ -22,8 +22,13 @@ dependencies:
   agora_rtc_engine: ^3.3.3
   permission_handler: ^5.0.1
   intl: ^0.17.0
-  flutter_datetime_picker: ^1.5.1
+  # flutter_datetime_picker: ^1.5.1
   http: ^0.12.1
+  crypto: ^2.1.5
+  flutter_datetime_picker:
+    git:
+      url: https://github.com/Realank/flutter_datetime_picker.git
+      ref: master
 
 
 dev_dependencies:

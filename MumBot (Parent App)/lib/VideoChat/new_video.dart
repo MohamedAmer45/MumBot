@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:mumbot_v2/screens/Book-Session/BookSession_screen.dart';
+import 'package:mumbot_v2/screens/book_session_screen.dart';
 
 class NewVideo extends StatefulWidget {
   final Function addTx;

@@ -76,12 +76,12 @@ class _CallPageState extends State<CallPage> {
   void _addAgoraEventHandlers() {
     _engine.setEventHandler(RtcEngineEventHandler(error: (code) {
       setState(() {
-        final info = 'onError: $code';
+        //final info = 'onError: $code';
         // _infoStrings.add(info);
       });
     }, joinChannelSuccess: (channel, uid, elapsed) {
       setState(() {
-        final info = 'onJoinChannel: $channel, uid: $uid';
+        //final info = 'onJoinChannel: $channel, uid: $uid';
         // _infoStrings.add(info);
       });
     }, leaveChannel: (stats) {
@@ -91,19 +91,19 @@ class _CallPageState extends State<CallPage> {
       });
     }, userJoined: (uid, elapsed) {
       setState(() {
-        final info = 'userJoined: $uid';
+        //final info = 'userJoined: $uid';
         // _infoStrings.add(info);
         _users.add(uid);
       });
     }, userOffline: (uid, elapsed) {
       setState(() {
-        final info = 'userOffline: $uid';
+        //final info = 'userOffline: $uid';
         // _infoStrings.add(info);
         _users.remove(uid);
       });
     }, firstRemoteVideoFrame: (uid, width, height, elapsed) {
       setState(() {
-        final info = 'firstRemoteVideo: $uid ${width}x $height';
+        // final info = 'firstRemoteVideo: $uid ${width}x $height';
         // _infoStrings.add(info);
       });
     }));

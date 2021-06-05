@@ -3,19 +3,19 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mumbot_v2/VideoChat/index.dart';
-import 'package:mumbot_v2/screens/Book-Inquiry/BookInquiry_screen.dart';
-import 'package:mumbot_v2/screens/Book-Session/BookSession_screen.dart';
-import 'package:mumbot_v2/screens/Edit-Password/editpassword_screen.dart';
-import 'package:mumbot_v2/screens/Edit-Profile/editProfile_screen.dart';
-import 'package:mumbot_v2/screens/Login/login_screen.dart';
-import 'package:mumbot_v2/screens/Signup/signup_screen.dart';
+
+import 'package:mumbot_v2/screens/book_Inquiry_screen.dart';
+import 'package:mumbot_v2/screens/book_session_screen.dart';
 import 'package:mumbot_v2/screens/chat_screen.dart';
+import 'package:mumbot_v2/screens/edit_password_screen.dart';
+import 'package:mumbot_v2/screens/edit_profile_screen.dart';
+import 'package:mumbot_v2/screens/login_screen.dart';
+import 'package:mumbot_v2/screens/signup_screen.dart';
 
 import './screens/user_panel_screen.dart';
 import 'package:watson_assistant_v2/watson_assistant_v2.dart';
 
 import './widgets/chatting_bubble.dart';
-import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());

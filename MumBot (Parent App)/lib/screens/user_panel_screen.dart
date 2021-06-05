@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mumbot_v2/VideoChat/index.dart';
-import 'package:mumbot_v2/screens/Book-Inquiry/BookInquiry_screen.dart';
-import 'package:mumbot_v2/screens/Edit-Profile/editProfile_screen.dart';
-import 'package:mumbot_v2/screens/Login/login_screen.dart';
 import '../main.dart';
 import '../widgets/panel_cards.dart';
+import 'book_Inquiry_screen.dart';
+import 'edit_profile_screen.dart';
+import 'login_screen.dart';
 
 final appBar = AppBar(
   backgroundColor: Colors.blue[900],

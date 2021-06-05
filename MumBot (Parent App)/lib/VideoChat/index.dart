@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:mumbot_v2/VideoChat/new_video.dart';
 import 'package:mumbot_v2/VideoChat/video_list.dart';
 import 'package:mumbot_v2/models/transaction.dart';
-import 'package:mumbot_v2/screens/Login/components/or_divider.dart';
-import 'package:mumbot_v2/screens/components/rounded_button.dart';
+import 'package:mumbot_v2/widgets/LineDivider.dart';
 import 'package:mumbot_v2/screens/user_panel_screen.dart';
+import 'package:mumbot_v2/widgets/rounded_button.dart';
 
 class IndexPage extends StatefulWidget {
   static const routeName = '/video-screen';
@@ -18,8 +18,10 @@ class IndexState extends State<IndexPage> {
   final _channelController = TextEditingController();
 
   /// if channel textField is validated to have error
+  // ignore: unused_field
   bool _validateError = false;
 
+  // ignore: unused_field
   ClientRole _role = ClientRole.Broadcaster;
 
   @override
@@ -30,6 +32,7 @@ class IndexState extends State<IndexPage> {
   }
 
   final List<Transaction> _userTransactions = [];
+  // ignore: unused_element
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
       return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
@@ -86,7 +89,7 @@ class IndexState extends State<IndexPage> {
               "Your Video Sessions",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21.5),
             ),
-            OrDivider(),
+            LineDivider(),
             Container(
                 height: (MediaQuery.of(context).size.height -
                         appBar.preferredSize.height -
