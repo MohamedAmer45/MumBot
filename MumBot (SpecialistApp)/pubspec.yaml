@@ -14,9 +14,25 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  backendless_sdk: ^6.3.0
+  watson_assistant_v2: ^0.0.1
+  cupertino_icons: ^0.1.2
   bubble: ^1.2.1
+  backendless_sdk: ^6.3.0
+  flutter_svg: ^0.19.1
+  provider: ^4.3.1
+  sqflite: ^2.0.0+3
+  path_provider: ^2.0.2
+  fluttertoast: ^8.0.7
+  agora_rtc_engine: ^3.3.3
+  permission_handler: ^5.0.1
+  intl: ^0.17.0
+  # flutter_datetime_picker: ^1.5.1
+  http: ^0.12.1
+  crypto: ^2.1.5
+  flutter_datetime_picker:
+    git:
+      url: https://github.com/Realank/flutter_datetime_picker.git
+      ref: master
 
 dev_dependencies:
   flutter_test:
@@ -34,6 +50,8 @@ flutter:
    - assets/images/MumBot3.png
    - assets/images/Video.jpg
    - assets/images/Chat.png
+   - assets/images/waiting.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

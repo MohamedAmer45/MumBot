@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:parenting_specialist/Screens/Edit-Password/editpassword_screen.dart';
-import 'package:parenting_specialist/Screens/Edit-Profile/editProfile_screen.dart';
-import 'package:parenting_specialist/Screens/Login/components/or_divider.dart';
-import 'package:parenting_specialist/Screens/components/rounded_button.dart';
+
 import 'package:parenting_specialist/Screens/home_page.dart';
-import 'package:parenting_specialist/Screens/user_panel_screen.dart';
+import 'package:parenting_specialist/widgets/LineDivider.dart';
+import 'package:parenting_specialist/widgets/rounded_button.dart';
+
+import 'edit_profile_screen.dart';
 
 class SettingScreen extends StatelessWidget {
   static const routeName = '/setting-screen';
@@ -19,7 +19,7 @@ class SettingScreen extends StatelessWidget {
             "Settings",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21.5),
           ),
-          OrDivider(),
+          LineDivider(),
 
           SizedBox(height: size.height * 0.15),
           RoundedButton(

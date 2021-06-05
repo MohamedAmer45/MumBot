@@ -39,6 +39,9 @@ android {
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
     }
 
     buildTypes {
@@ -63,4 +66,5 @@ dependencies {
       // excluding org.json which is provided by Android  
       exclude group: 'org.json', module: 'json'  
     }
+    implementation 'com.android.support:multidex:1.0.3'
 }

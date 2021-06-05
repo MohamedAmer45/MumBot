@@ -63,18 +63,22 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             // backgroundColor: Colors.blue[900],
             icon: Icon(Icons.home),
+            // ignore: deprecated_member_use
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.schedule),
+            // ignore: deprecated_member_use
             title: Text('Schedule'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.forum),
+            // ignore: deprecated_member_use
             title: Text('Forum'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
+            // ignore: deprecated_member_use
             title: Text('Settings'),
           ),
         ],

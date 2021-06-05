@@ -5,14 +5,14 @@ Widget chattingBubble(String message, int data) {
   return Container(
     child: Row(
       mainAxisAlignment:
-          data == 0 ? MainAxisAlignment.end : MainAxisAlignment.start,
+          data == 1 ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
-        data == 1
+        data == 0
             ? Container(
                 height: 60,
                 width: 60,
                 child: CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/User.png"),
+                  backgroundImage: AssetImage("assets/images/MumBot3.png"),
                 ),
               )
             : Container(),
@@ -20,7 +20,7 @@ Widget chattingBubble(String message, int data) {
           padding: EdgeInsets.all(10.0),
           child: Bubble(
               radius: Radius.circular(20.0),
-              color: data == 1 ? Colors.blue : Colors.orangeAccent,
+              color: data == 0 ? Colors.blue : Colors.orangeAccent,
               elevation: 0.0,
               child: Padding(
                 padding: EdgeInsets.all(2.0),
@@ -43,12 +43,12 @@ Widget chattingBubble(String message, int data) {
                 ),
               )),
         ),
-        data == 0
+        data == 1
             ? Container(
                 height: 60,
                 width: 60,
                 child: CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/Specialist.png"),
+                  backgroundImage: AssetImage("assets/images/User.png"),
                   backgroundColor: Colors.white,
                 ),
               )

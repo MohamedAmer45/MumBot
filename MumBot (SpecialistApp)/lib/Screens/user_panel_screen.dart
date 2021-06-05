@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import '../screens/chat_screen.dart';
-import '../main.dart';
+
 import '../Widgets/panel_cards.dart';
 
 bool isSwitched = false;
 
-// final appBar = AppBar(
-//   backgroundColor: Colors.blue[900],
-//   title: Text(
-//     'MumBot',
-//     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-//   ),
-//   actions: [
-//     Switch(
-//       value: isSwitched,
-//       onChanged: (value) {},
-//     )
-//   ],
-// );
+final appBar = AppBar(
+  backgroundColor: Colors.blue[900],
+  title: Text(
+    'MumBot',
+    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+  ),
+  actions: [
+    Switch(
+      value: isSwitched,
+      onChanged: (value) {},
+    )
+  ],
+);
 
 class UserPanelScreen extends StatefulWidget {
   static const routeName = '/user-panel-screen';
