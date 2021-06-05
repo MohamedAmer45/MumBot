@@ -1,0 +1,10 @@
+git commit -a
+git push
+
+i for insert
+esc
+:wq
+
+
+git status
+git pull
