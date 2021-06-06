@@ -3,7 +3,7 @@ class Answer {
   final String body;
   final String date;
   final int questionId;
-  final String specialistId;
+  final int specialistId;
 
   Answer({this.id, this.body, this.date, this.questionId, this.specialistId});
 

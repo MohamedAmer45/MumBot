@@ -1,10 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:parenting_specialist/models/question.dart';
+import 'package:parenting_specialist/models/answer.dart';
 import 'package:parenting_specialist/models/specialist.dart';
-
-List questionData;
 
 class SpecialistAPI {
   Future<Specialist> fetchSpecialist(Specialist specialist) async {
@@ -18,22 +16,6 @@ class SpecialistAPI {
     } else {
       print('404');
       throw Exception('Failed to load parent');
-    }
-  }
-
-  Future<Question> fetchQuestion() async {
-    final response =
-        await http.get(Uri.parse('http://10.0.2.2:8000/apis/api/question/'));
-
-    if (response.statusCode == 200) {
-      print('question 200');
-
-      questionData = jsonDecode(response.body);
-      print(questionData.length);
-      return Question.fromJson(jsonDecode(response.body));
-    } else {
-      print('404');
-      throw Exception('Failed to load question');
     }
   }
 
@@ -56,6 +38,31 @@ class SpecialistAPI {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       return Specialist.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception(response.statusCode);
+    }
+  }
+
+  Future<Answer> addAnswer(int id, String answerBody, int specialistId) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:8000/apis/api/answer/$id/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'answer_body': answerBody,
+        'answer_specialist': specialistId,
+        'answer_question': id,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+
+      return Answer.fromJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
