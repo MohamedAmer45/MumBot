@@ -13,6 +13,8 @@ class RoundedPasswordField extends StatelessWidget {
   final FocusNode focusNode;
   final Function(String) onFieldSubmitted;
   final TextInputAction textInputAction;
+  final bool obscureText;
+  final InputDecoration decoration;
 
   const RoundedPasswordField({
     this.hintText,
@@ -23,6 +25,8 @@ class RoundedPasswordField extends StatelessWidget {
     this.validator,
     this.autovalidate,
     this.textInputAction,
+    this.obscureText,
+    this.decoration,
     Key key,
     this.onChanged,
   }) : super(key: key);
@@ -31,7 +35,6 @@ class RoundedPasswordField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextFormField(
-        obscureText: true,
         onChanged: onChanged,
         cursorColor: kPrimaryColor,
         controller: controller,
@@ -41,14 +44,8 @@ class RoundedPasswordField extends StatelessWidget {
         focusNode: focusNode,
         onFieldSubmitted: onFieldSubmitted,
         onSaved: onsaved,
-        decoration: InputDecoration(
-          hintText: hintText,
-          icon: Icon(
-            Icons.lock,
-            color: kPrimaryColor,
-          ),
-          border: InputBorder.none,
-        ),
+        obscureText: obscureText,
+        decoration: decoration,
       ),
     );
   }

@@ -111,6 +111,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
+  bool obscureText1 = true;
+  bool obscureText2 = true;
+  void _toggle1() {
+    setState(() {
+      obscureText1 = !obscureText1;
+    });
+  }
+
+  void _toggle2() {
+    setState(() {
+      obscureText2 = !obscureText2;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -207,7 +221,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 onChanged: (value) {},
               ),
               RoundedPasswordField(
-                hintText: 'Password',
                 textInputAction: TextInputAction.next,
                 focusNode: _signupPhoneFocus,
                 onFieldSubmitted: (_) {
@@ -216,6 +229,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 controller: _passwordController,
                 onsaved: (newValue) => password = newValue,
                 autovalidate: AutovalidateMode.onUserInteraction,
+                obscureText: obscureText1,
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.visibility),
+                    onPressed: () {
+                      _toggle1();
+                    },
+                  ),
+                  icon: Icon(
+                    Icons.lock,
+                    color: kPrimaryColor,
+                  ),
+                  border: InputBorder.none,
+                ),
                 validator: (value) {
                   if (value.isEmpty) {
                     return PassNullError;
@@ -231,11 +259,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
               ),
               RoundedPasswordField(
-                hintText: 'Confirm Password',
                 textInputAction: TextInputAction.done,
                 focusNode: _signupPasswordFocus,
                 onsaved: (newValue) => confirmPassword = newValue,
                 controller: _confirmPasswordController,
+                obscureText: obscureText2,
+                decoration: InputDecoration(
+                  hintText: 'Confirm Password',
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.visibility),
+                    onPressed: () {
+                      _toggle2();
+                    },
+                  ),
+                  icon: Icon(
+                    Icons.lock,
+                    color: kPrimaryColor,
+                  ),
+                  border: InputBorder.none,
+                ),
                 autovalidate: AutovalidateMode.onUserInteraction,
                 onChanged: (value) {
                   confirmPassword = value;
@@ -266,7 +308,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         );
                       });
                       Navigator.of(context)
-                          .pushReplacementNamed(UserPanelScreen.routeName);
+                          .pushReplacementNamed(LoginScreen.routeName);
                     } else {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(signUpSnackBar);

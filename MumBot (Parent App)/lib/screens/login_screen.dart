@@ -10,10 +10,11 @@ import 'package:mumbot_v2/widgets/LineDivider.dart';
 import 'package:mumbot_v2/screens/user_panel_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:mumbot_v2/widgets/already_have_an_account_acheck.dart';
+import 'package:mumbot_v2/widgets/constants.dart';
 import 'package:mumbot_v2/widgets/rounded_button.dart';
 import 'package:mumbot_v2/widgets/rounded_input_field.dart';
 import 'package:mumbot_v2/widgets/rounded_password_field.dart';
-import 'dart:convert';
+
 import 'package:crypto/crypto.dart';
 
 Map<String, dynamic> parentLoginData;
@@ -67,6 +68,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String generateMd5Login(String input) {
     return md5.convert(utf8.encode(input)).toString();
+  }
+
+  bool obscureText = true;
+  void _toggle() {
+    setState(() {
+      obscureText = !obscureText;
+    });
   }
 
   @override
@@ -127,11 +135,24 @@ class _LoginScreenState extends State<LoginScreen> {
               onChanged: (value) {},
             ),
             RoundedPasswordField(
-              hintText: 'Passsword',
               focusNode: _loginEmailFocus,
               textInputAction: TextInputAction.done,
               controller: _passwordController,
-              onChanged: (value) {},
+              obscureText: obscureText,
+              decoration: InputDecoration(
+                hintText: 'Passsword',
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.visibility),
+                  onPressed: () {
+                    _toggle();
+                  },
+                ),
+                icon: Icon(
+                  Icons.lock,
+                  color: kPrimaryColor,
+                ),
+                border: InputBorder.none,
+              ),
             ),
             RoundedButton(
               text: "LOGIN",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mumbot_v2/api/parent_api.dart';
 import 'package:mumbot_v2/models/parent.dart';
 import 'package:mumbot_v2/screens/login_screen.dart';
@@ -13,6 +14,16 @@ import 'package:mumbot_v2/widgets/rounded_input_field.dart';
 
 import 'edit_password_screen.dart';
 
+TextEditingController _initialNameController =
+    new TextEditingController(text: parentLoginData['user_name']);
+TextEditingController _finalNameController = new TextEditingController();
+TextEditingController _initialEmailController =
+    new TextEditingController(text: parentLoginData['user_email']);
+TextEditingController _finalEmailController = new TextEditingController();
+TextEditingController _initialPhoneController =
+    new TextEditingController(text: parentLoginData['user_phone']);
+TextEditingController _finalPhoneController = new TextEditingController();
+
 class EditProfileScreen extends StatefulWidget {
   static const routeName = '/bookSession-screen';
 
@@ -24,22 +35,6 @@ final _editProfileFormKey = GlobalKey<FormState>();
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   Future<Parent> fetchParent;
-
-  TextEditingController _initialNameController = new TextEditingController();
-  TextEditingController _finalNameController = new TextEditingController();
-  TextEditingController _initialEmailController = new TextEditingController();
-  TextEditingController _finalEmailController = new TextEditingController();
-  TextEditingController _initialPhoneController = new TextEditingController();
-  TextEditingController _finalPhoneController = new TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    fetchParent = ParentAPI().fetchParent(Parent(id: parentLoginData['id']));
-    _initialNameController.text = parentLoginData['user_name'];
-    _initialEmailController.text = parentLoginData['user_email'];
-    _initialPhoneController.text = parentLoginData['user_phone'];
-  }
 
   final successEditintProfileSnackBar = SnackBar(
     content: Row(
@@ -58,6 +53,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   );
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      fetchParent = ParentAPI().fetchParent(Parent(id: parentLoginData['id']));
+    });
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -76,24 +74,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21.5),
               ),
               LineDivider(),
-              RoundedInputField(
-                hintText: 'Name',
-                textInputAction: TextInputAction.done,
-                keyboardType: TextInputType.name,
-                controller: _finalNameController =
-                    _finalNameController.text.isEmpty
-                        ? _initialNameController
-                        : _finalNameController,
-                autovalidate: AutovalidateMode.onUserInteraction,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return NameNullError;
-                  } else if (value.length < 2) {
-                    return ShortNameError;
-                  }
+              Container(
+                child: RoundedInputField(
+                  hintText: 'Name',
+                  textInputAction: TextInputAction.done,
+                  keyboardType: TextInputType.name,
+                  controller: _finalNameController =
+                      _finalNameController.text.isEmpty
+                          ? _initialNameController
+                          : _finalNameController,
+                  autovalidate: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return NameNullError;
+                    } else if (value.length < 2) {
+                      return ShortNameError;
+                    }
 
-                  return null;
-                },
+                    return null;
+                  },
+                ),
               ),
               RoundedInputField(
                 hintText: 'Email',
@@ -153,6 +153,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 press: () {
                   if (_editProfileFormKey.currentState.validate()) {
                     _editProfileFormKey.currentState.save();
+
                     setState(() {
                       ParentAPI().updateParent(
                           parentLoginData['id'],
