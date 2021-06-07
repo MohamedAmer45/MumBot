@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:parenting_specialist/Screens/home_page.dart';
 import 'package:parenting_specialist/api/specialist_api.dart';
 import 'package:parenting_specialist/widgets/LineDivider.dart';
 import 'package:parenting_specialist/widgets/constants.dart';
@@ -224,6 +225,11 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                     });
                     ScaffoldMessenger.of(context)
                         .showSnackBar(successEditintPasswordSnackBar);
+                    _currentPasswordController.clear();
+                    _newPasswordController.clear();
+                    _repeatnewPasswordController.clear();
+                    Navigator.of(context)
+                        .pushReplacementNamed(HomePage.routeName);
                   }
                 },
               ),

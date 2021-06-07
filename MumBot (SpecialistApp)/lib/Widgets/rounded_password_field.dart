@@ -35,7 +35,7 @@ class RoundedPasswordField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextFormField(
-        obscureText: true,
+        obscureText: obscureText,
         onChanged: onChanged,
         cursorColor: kPrimaryColor,
         controller: controller,
@@ -46,14 +46,6 @@ class RoundedPasswordField extends StatelessWidget {
         onFieldSubmitted: onFieldSubmitted,
         onSaved: onsaved,
         decoration: decoration,
-        //  InputDecoration(
-        //   hintText: hintText,
-        //   icon: Icon(
-        //     Icons.lock,
-        //     color: kPrimaryColor,
-        //   ),
-        //   border: InputBorder.none,
-        // ),
       ),
     );
   }

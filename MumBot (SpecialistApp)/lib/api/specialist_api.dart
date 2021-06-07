@@ -58,7 +58,7 @@ class SpecialistAPI {
       }),
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
 
@@ -66,6 +66,43 @@ class SpecialistAPI {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
+      throw Exception(response.statusCode);
+    }
+  }
+
+  Future<Answer> addSlot(
+    int specialistId,
+    String freeDay,
+    String slotDate,
+    int slotStartTimeInteger,
+    String slotStartTime,
+    String slotEndTime,
+  ) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:8000/apis/api/slot/create/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'schedule_specialist': specialistId,
+        'free_day': freeDay,
+        'slot_date': slotDate,
+        'slot_start_time_integer': slotStartTimeInteger,
+        'slot_start_time': slotStartTime,
+        'slot_end_time': slotEndTime,
+        'booked': 0,
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      print('Slot Added');
+      return Answer.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      print('Failed To Add Slot');
       throw Exception(response.statusCode);
     }
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:parenting_specialist/Screens/home_page.dart';
 import 'package:parenting_specialist/Screens/login_screen.dart';
 import 'package:parenting_specialist/widgets/LineDivider.dart';
 import 'package:parenting_specialist/widgets/rounded_button.dart';

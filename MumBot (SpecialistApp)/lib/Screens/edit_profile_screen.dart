@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:parenting_specialist/Widgets/constants.dart';
 import 'package:parenting_specialist/api/specialist_api.dart';
 import 'package:parenting_specialist/models/specialist.dart';
 import 'package:parenting_specialist/widgets/LineDivider.dart';
-import 'package:parenting_specialist/widgets/constants.dart';
+
 import 'package:parenting_specialist/widgets/rounded_button.dart';
 import 'package:parenting_specialist/widgets/rounded_input_field.dart';
 
@@ -10,6 +11,19 @@ import 'dart:async';
 
 import 'edit_password_screen.dart';
 import 'login_screen.dart';
+
+TextEditingController _initialNameController =
+    new TextEditingController(text: specialistLoginData['user_name']);
+TextEditingController _finalNameController = new TextEditingController();
+TextEditingController _initialEmailController =
+    new TextEditingController(text: specialistLoginData['user_email']);
+TextEditingController _finalEmailController = new TextEditingController();
+TextEditingController _initialPhoneController =
+    new TextEditingController(text: specialistLoginData['user_phone']);
+TextEditingController _finalPhoneController = new TextEditingController();
+TextEditingController _initialBioController =
+    new TextEditingController(text: specialistLoginData['specialist_brief']);
+TextEditingController _finalBioController = new TextEditingController();
 
 class EditProfileScreen extends StatefulWidget {
   static const routeName = '/bookSession-screen';
@@ -22,24 +36,6 @@ final _editProfileFormKey = GlobalKey<FormState>();
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   Future<Specialist> fetchSpecialist;
-
-  TextEditingController _initialNameController = new TextEditingController();
-  TextEditingController _finalNameController = new TextEditingController();
-  TextEditingController _initialEmailController = new TextEditingController();
-  TextEditingController _finalEmailController = new TextEditingController();
-  TextEditingController _initialPhoneController = new TextEditingController();
-  TextEditingController _finalPhoneController = new TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    fetchSpecialist = SpecialistAPI()
-        .fetchSpecialist(Specialist(id: specialistLoginData['id']));
-
-    _initialNameController.text = specialistLoginData['user_name'];
-    _initialEmailController.text = specialistLoginData['user_email'];
-    _initialPhoneController.text = specialistLoginData['user_phone'];
-  }
 
   final successEditintProfileSnackBar = SnackBar(
     content: Row(
@@ -58,6 +54,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   );
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      fetchSpecialist = SpecialistAPI()
+          .fetchSpecialist(Specialist(id: specialistLoginData['id']));
+    });
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -70,7 +70,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: size.height * 0.08),
+              SizedBox(height: size.height * 0.05),
               Text(
                 "Edit Your Profile",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21.5),
@@ -120,7 +120,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               RoundedInputField(
                 hintText: 'Phone',
-                textInputAction: TextInputAction.done,
+                textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 controller: _finalPhoneController =
                     _finalPhoneController.text.isEmpty
@@ -140,7 +140,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: size.height * 0.1),
+              RoundedInputField(
+                hintText: 'Brief',
+                textInputAction: TextInputAction.done,
+                controller: _finalBioController =
+                    _finalBioController.text.isEmpty
+                        ? _initialBioController
+                        : _finalBioController,
+                autovalidate: AutovalidateMode.onUserInteraction,
+                maxLines: 3,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return PhoneNumberNullError;
+                  } else if (value.length < 150) {
+                    return LongBioError;
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: size.height * 0.035),
               RoundedButton(
                 text: "Edit Password",
                 press: () {

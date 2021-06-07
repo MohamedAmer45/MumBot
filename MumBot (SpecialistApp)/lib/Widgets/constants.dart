@@ -28,3 +28,5 @@ const String InvalidCVVError = "Please Enter the 3-digit CVV";
 const String AddressNullError = "Please Enter your address";
 const String NameNullError = "Please Enter Valid Name";
 const String ShortNameError = "Name is Too Short";
+const String LongBioError = "Brief is Too Long";
+const String BioNullError = "Brief Can't Be Empty";

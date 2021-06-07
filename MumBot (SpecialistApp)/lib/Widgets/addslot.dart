@@ -2,17 +2,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:parenting_specialist/Screens/login_screen.dart';
+import 'package:parenting_specialist/api/specialist_api.dart';
 
-class NewVideo extends StatefulWidget {
-  final Function addTx;
+class AddSlot extends StatefulWidget {
+  final Function _addTx;
 
-  NewVideo(this.addTx);
+  AddSlot(this._addTx);
 
   @override
-  _NewTransactionState createState() => _NewTransactionState();
+  _AddSlotState createState() => _AddSlotState();
 }
 
-class _NewTransactionState extends State<NewVideo> {
+class _AddSlotState extends State<AddSlot> {
+  int _specialistId = specialistLoginData['id'];
+  String _freeDay;
+  String _slotDate;
+  int _slotStartTimeIntger;
+  String _slotStartTime;
+  String _slotEndTime;
+
   DateTime _selectedDate;
   DateTime _selectedTime;
 
@@ -20,55 +29,54 @@ class _NewTransactionState extends State<NewVideo> {
     if (_selectedDate == null || _selectedTime == null) {
       return;
     }
-    // else {
-    //   Navigator.of(context).pushNamed(BookSessionScreen.routeName);
-    // }
     Navigator.of(context).pop();
-    //Navigator.of(context).pushNamed(BookSessionScreen.routeName);
 
-    widget.addTx(_selectedDate, _selectedTime);
-    //print(DateFormat.Hm().format(_selectedTime));
-    //print(DateFormat.H().format(_selectedTime));
+    widget._addTx(_selectedDate, _selectedTime);
+    setState(() {
+      SpecialistAPI().addSlot(_specialistId, _freeDay, _slotDate,
+          _slotStartTimeIntger, _slotStartTime, _slotEndTime);
+    });
   }
 
   void _presentDatePicker() {
-    // showDatePicker(
-    //         context: context,
-    //         initialDate: DateTime.now(),
-    //         firstDate: DateTime(2021),
-    //         lastDate: DateTime.now())
+    DateTime _currentTime = DateTime.now();
     DatePicker.showDatePicker(context,
             showTitleActions: true,
-            minTime: DateTime.now(),
-            maxTime: DateTime(2025, 6, 7), onChanged: (date) {
-      print('change $date');
-    }, onConfirm: (date) {
-      print('confirm $date');
-    }, currentTime: DateTime.now(), locale: LocaleType.en)
-        .then((pickedate) {
-      if (pickedate == null) {
+            minTime: _currentTime,
+            maxTime: DateTime(
+                _currentTime.year, _currentTime.month, _currentTime.day + 6),
+            currentTime: DateTime.now(),
+            locale: LocaleType.en)
+        .then((_pickedate) {
+      if (_pickedate == null) {
         return;
       }
       setState(() {
-        _selectedDate = pickedate;
+        _selectedDate = _pickedate;
+        _freeDay = DateFormat.EEEE().format(_pickedate);
+        _slotDate = DateFormat('yyyy-MM-dd').format(_pickedate);
       });
     });
   }
 
   void _presentTimePicker() {
+    DateTime _startTime;
+
     DatePicker.showTimePicker(context,
             showTitleActions: true,
-            showSecondsColumn: false, onChanged: (time) {
-      print('change $time');
-    }, onConfirm: (time) {
-      print('confirm $time');
-    }, currentTime: DateTime.now(), locale: LocaleType.en)
-        .then((pickedTime) {
-      if (pickedTime == null) {
+            showSecondsColumn: false,
+            currentTime: DateTime.now(),
+            locale: LocaleType.en)
+        .then((_pickedTime) {
+      if (_pickedTime == null) {
         return;
       }
       setState(() {
-        _selectedTime = pickedTime;
+        _selectedTime = _pickedTime;
+        _slotStartTimeIntger = int.parse(DateFormat('hh').format(_pickedTime));
+        _slotStartTime = DateFormat.Hm().format(_pickedTime);
+        _startTime = _pickedTime.add(Duration(hours: 1));
+        _slotEndTime = DateFormat.Hm().format(_startTime);
       });
     });
   }
@@ -87,23 +95,6 @@ class _NewTransactionState extends State<NewVideo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              // TextField(
-              //   decoration: InputDecoration(labelText: 'Title'),
-              //   controller: _titleController,
-              //   onSubmitted: (_) => _submitData(),
-              //   // onChanged: (val) {
-              //   //   titleInput = val;
-              //   // },
-              // ),
-              // TextField(
-              //   decoration: InputDecoration(labelText: 'Amount'),
-              //   controller: _amountController,
-              //   keyboardType: TextInputType.number,
-              //   onSubmitted: (_) => _submitData(),
-              //   // onChanged: (val) {
-              //   //   amountInput = val;
-              //   // },
-              // ),
               Container(
                 height: 70,
                 child: Row(
@@ -111,7 +102,7 @@ class _NewTransactionState extends State<NewVideo> {
                     Expanded(
                       child: Text(_selectedDate == null
                           ? 'No date chosen'
-                          : 'Picked Date : ${DateFormat.yMd().format(_selectedDate)}'),
+                          : 'Picked Date : ${DateFormat('dd-MM-yyyy').format(_selectedDate)}'),
                     ),
                     // ignore: deprecated_member_use
                     FlatButton(
@@ -123,7 +114,6 @@ class _NewTransactionState extends State<NewVideo> {
                   ],
                 ),
               ),
-
               Container(
                 height: 70,
                 child: Row(
@@ -131,7 +121,7 @@ class _NewTransactionState extends State<NewVideo> {
                     Expanded(
                       child: Text(_selectedTime == null
                           ? 'No Time'
-                          : 'Picked Hour : ${DateFormat.H().format(_selectedTime)}'),
+                          : 'Picked Hour : ${DateFormat.Hm().format(_selectedTime)}'),
                     ),
                     // ignore: deprecated_member_use
                     FlatButton(
@@ -146,7 +136,7 @@ class _NewTransactionState extends State<NewVideo> {
               ElevatedButton(
                 onPressed: _submitData,
                 child: Text(
-                  'Proceed to Payment',
+                  'Add slot',
                 ),
               )
             ],

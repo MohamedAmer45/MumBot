@@ -46,7 +46,7 @@ final emptyAnswerSnackBar = SnackBar(
   elevation: 7,
 );
 
-List data;
+List _data;
 int questionId;
 String questionBody;
 String questionDate;
@@ -60,6 +60,7 @@ class _ForumScreenState extends State<ForumScreen> {
     fetchQuestionData();
   }
 
+  // ignore: missing_return
   Future<Question> fetchQuestionData() async {
     final response =
         await http.get(Uri.parse('http://10.0.2.2:8000/apis/api/question/'));
@@ -67,7 +68,7 @@ class _ForumScreenState extends State<ForumScreen> {
     if (response.statusCode == 200) {
       setState(() {
         var resBody = json.decode(response.body);
-        data = resBody;
+        _data = resBody;
       });
     } else {
       print('404');
@@ -78,11 +79,11 @@ class _ForumScreenState extends State<ForumScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: data == null ? 0 : data.length,
+      itemCount: _data == null ? 0 : _data.length,
       itemBuilder: (context, index) {
-        questionId = data[index]['id'];
-        questionBody = data[index]['question_body'];
-        questionDate = data[index]['question_date'];
+        questionId = _data[index]['id'];
+        questionBody = _data[index]['question_body'];
+        questionDate = _data[index]['question_date'];
         Size size = MediaQuery.of(context).size;
         final TextEditingController _answerController =
             new TextEditingController();
