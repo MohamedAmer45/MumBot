@@ -9,7 +9,7 @@ import 'Screens/edit_password_screen.dart';
 import 'Screens/edit_profile_screen.dart';
 import 'Screens/login_screen.dart';
 import 'Screens/user_panel_screen.dart';
-import 'Screens/appointments_screen.dart';
+import 'Screens/sessions_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         SettingScreen.routeName: (ctx) => SettingScreen(),
         EditProfileScreen.routeName: (ctx) => EditProfileScreen(),
         EditPasswordScreen.routeName: (ctx) => EditPasswordScreen(),
-        AppointmentScreen.routeName: (ctx) => AppointmentScreen(),
+        SessionsScreen.routeName: (ctx) => SessionsScreen(),
       },
     );
   }

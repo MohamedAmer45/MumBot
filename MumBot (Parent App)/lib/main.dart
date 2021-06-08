@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mumbot_v2/VideoChat/index.dart';
+import 'package:mumbot_v2/screens/booking_session_screen.dart';
+import 'package:mumbot_v2/screens/sessions_screen.dart';
 
-import 'package:mumbot_v2/screens/book_Inquiry_screen.dart';
-import 'package:mumbot_v2/screens/book_session_screen.dart';
+import 'package:mumbot_v2/screens/Inquiry_payment_screen.dart';
+import 'package:mumbot_v2/screens/session_payment_screen.dart';
 import 'package:mumbot_v2/screens/chat_screen.dart';
 import 'package:mumbot_v2/screens/edit_password_screen.dart';
 import 'package:mumbot_v2/screens/edit_profile_screen.dart';
@@ -51,9 +52,10 @@ class MyApp extends StatelessWidget {
         ChatScreen.routeName: (ctx) => ChatScreen(),
         EditProfileScreen.routeName: (ctx) => EditProfileScreen(),
         EditPasswordScreen.routeName: (ctx) => EditPasswordScreen(),
-        IndexPage.routeName: (ctx) => IndexPage(),
-        BookSessionScreen.routeName: (ctx) => BookSessionScreen(),
-        BookInquiryScreen.routeName: (ctx) => BookInquiryScreen(),
+        SessionPaymentScreen.routeName: (ctx) => SessionPaymentScreen(),
+        InquiryPaymentScreen.routeName: (ctx) => InquiryPaymentScreen(),
+        SessionsScreen.routeName: (ctx) => SessionsScreen(),
+        BookingSessionScreen.routeName: (ctx) => BookingSessionScreen(),
       },
     );
   }

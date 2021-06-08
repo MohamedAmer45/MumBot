@@ -16,6 +16,17 @@ import 'user_panel_screen.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
+final TextEditingController _nameController = new TextEditingController();
+
+final TextEditingController _emailController = new TextEditingController();
+
+final TextEditingController _phoneController = new TextEditingController();
+
+final TextEditingController _passwordController = new TextEditingController();
+
+final TextEditingController _confirmPasswordController =
+    new TextEditingController();
+
 class SignUpScreen extends StatefulWidget {
   static const routeName = '/signup-screen';
 
@@ -30,16 +41,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return md5.convert(utf8.encode(input)).toString();
   }
 
-  final TextEditingController _nameController = new TextEditingController();
-
-  final TextEditingController _emailController = new TextEditingController();
-
-  final TextEditingController _phoneController = new TextEditingController();
-
-  final TextEditingController _passwordController = new TextEditingController();
-
-  final TextEditingController _confirmPasswordController =
-      new TextEditingController();
   final _signupFormKey = GlobalKey<FormState>();
 
   final _signupNameFocus = FocusNode();
@@ -314,6 +315,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           .showSnackBar(signUpSnackBar);
                     }
                   }
+                  _nameController.clear();
+                  _emailController.clear();
+                  _phoneController.clear();
+                  _passwordController.clear();
+                  _confirmPasswordController.clear();
                 },
               ),
               AlreadyHaveAnAccountCheck(

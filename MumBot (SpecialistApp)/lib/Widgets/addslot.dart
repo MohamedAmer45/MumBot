@@ -6,10 +6,6 @@ import 'package:parenting_specialist/Screens/login_screen.dart';
 import 'package:parenting_specialist/api/specialist_api.dart';
 
 class AddSlot extends StatefulWidget {
-  final Function _addTx;
-
-  AddSlot(this._addTx);
-
   @override
   _AddSlotState createState() => _AddSlotState();
 }
@@ -31,7 +27,7 @@ class _AddSlotState extends State<AddSlot> {
     }
     Navigator.of(context).pop();
 
-    widget._addTx(_selectedDate, _selectedTime);
+    //widget._addTx(_selectedDate, _selectedTime);
     setState(() {
       SpecialistAPI().addSlot(_specialistId, _freeDay, _slotDate,
           _slotStartTimeIntger, _slotStartTime, _slotEndTime);

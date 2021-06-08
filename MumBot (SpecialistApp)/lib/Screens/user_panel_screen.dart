@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parenting_specialist/Screens/appointments_screen.dart';
+import 'package:parenting_specialist/Screens/sessions_screen.dart';
 import '../screens/chat_screen.dart';
 
 import '../Widgets/panel_cards.dart';
@@ -60,7 +60,7 @@ class _UserPanelScreenState extends State<UserPanelScreen> {
                 AssetImage("assets/images/Video.jpg"),
                 '           View your video \n                 sessions',
                 'Video Sessions', () {
-              Navigator.of(context).pushNamed(AppointmentScreen.routeName);
+              Navigator.of(context).pushNamed(SessionsScreen.routeName);
             })
           ],
         ),

@@ -15,6 +15,9 @@ import 'package:parenting_specialist/widgets/rounded_input_field.dart';
 import 'package:parenting_specialist/widgets/rounded_password_field.dart';
 
 Map<String, dynamic> specialistLoginData;
+final TextEditingController _emailController = new TextEditingController();
+
+final TextEditingController _passwordController = new TextEditingController();
 
 class UpperCaseTextFormatter extends TextInputFormatter {
   @override
@@ -42,9 +45,6 @@ class _LoginScreenState extends State<LoginScreen> {
   // ignore: unused_field
   Future<Specialist> _loginSpecialist;
 
-  final TextEditingController _emailController = new TextEditingController();
-
-  final TextEditingController _passwordController = new TextEditingController();
   final loginSnackBar = SnackBar(
     content: Text(
       'Incorrect Email or Password',

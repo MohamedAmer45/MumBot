@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mumbot_v2/VideoChat/index.dart';
+import 'package:mumbot_v2/screens/sessions_screen.dart';
 import '../main.dart';
 import '../widgets/panel_cards.dart';
-import 'book_Inquiry_screen.dart';
+import 'Inquiry_payment_screen.dart';
 import 'edit_profile_screen.dart';
 import 'login_screen.dart';
 
@@ -89,14 +89,14 @@ class UserPanelScreen extends StatelessWidget {
                 AssetImage("assets/images/Specialist.png"),
                 '       Ask a real parenting \n specialist for parenting help',
                 'Let\'s Talk', () {
-              Navigator.of(context).pushNamed(BookInquiryScreen.routeName);
+              Navigator.of(context).pushNamed(InquiryPaymentScreen.routeName);
             }),
             PanelCards(
                 'Video Session with a real specialist',
                 AssetImage("assets/images/Video.jpg"),
                 '     Book a video session \n with a parenting specialist',
                 'Video Sessions', () {
-              Navigator.of(context).pushNamed(IndexPage.routeName);
+              Navigator.of(context).pushNamed(SessionsScreen.routeName);
             })
           ],
         ),

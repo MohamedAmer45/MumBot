@@ -30,12 +30,12 @@ class UpperCaseTextFormatter extends TextInputFormatter {
   }
 }
 
+final TextEditingController _emailController = new TextEditingController();
+
+final TextEditingController _passwordController = new TextEditingController();
+
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login-screen';
-
-  const LoginScreen({
-    Key key,
-  }) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -45,9 +45,6 @@ class _LoginScreenState extends State<LoginScreen> {
   // ignore: unused_field
   Future<Parent> _loginParent;
 
-  final TextEditingController _emailController = new TextEditingController();
-
-  final TextEditingController _passwordController = new TextEditingController();
   final loginSnackBar = SnackBar(
     content: Text(
       'Incorrect Email or Password',
@@ -166,6 +163,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     // generateMd5Login(_passwordController.text),
                   );
                 });
+                _emailController.clear();
+                _passwordController.clear();
               },
             ),
             SizedBox(height: size.height * 0.03),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:mumbot_v2/models/addsession.dart';
 import 'package:mumbot_v2/models/parent.dart';
 
 class ParentAPI {
@@ -31,6 +32,46 @@ class ParentAPI {
         'user_email': email,
         'user_phone': phone,
       }),
+    );
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      return Parent.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception(response.statusCode);
+    }
+  }
+
+  Future<Parent> updateSlotsListone(int id) async {
+    final response = await http.put(
+      Uri.parse('http://10.0.2.2:8000/apis/api/slot/update/$id/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, int>{'booked': 1}),
+    );
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      return Parent.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception(response.statusCode);
+    }
+  }
+
+  Future<Parent> updateSlotsListzero(int id) async {
+    final response = await http.put(
+      Uri.parse('http://10.0.2.2:8000/apis/api/slot/update/$id/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, int>{'booked': 0}),
     );
 
     if (response.statusCode == 200) {
@@ -88,6 +129,29 @@ class ParentAPI {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
       throw Exception('Failed to add parent.');
+    }
+  }
+
+  Future<AddSession> addSession(int parentId, int videoSlot) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:8000/apis/api/appointment/create/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, int>{
+        'parent_id': parentId,
+        'video_slot': videoSlot,
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      return AddSession.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to add Session.');
     }
   }
 }

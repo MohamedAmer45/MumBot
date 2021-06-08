@@ -4,7 +4,6 @@ import 'package:parenting_specialist/Widgets/addslot.dart';
 import 'package:parenting_specialist/Widgets/LineDivider.dart';
 import 'package:parenting_specialist/Widgets/rounded_button.dart';
 import 'package:parenting_specialist/Widgets/slotslist.dart';
-import 'package:parenting_specialist/models/slot.dart';
 
 class ScheduleScreen extends StatefulWidget {
   static const routeName = '/schedule-screen';
@@ -14,41 +13,16 @@ class ScheduleScreen extends StatefulWidget {
 }
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
-  final List<Slot> _specialistSlots = [];
-  // ignore: unused_element
-  List<Slot> get _recentSlots {
-    return _specialistSlots.where((tx) {
-      return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
-    }).toList();
-  }
-
-  void _addNewSlot(DateTime chosenTime, DateTime chosenDate) {
-    final _newTx =
-        Slot(id: DateTime.now().toString(), time: chosenTime, date: chosenDate);
-
-    setState(() {
-      _specialistSlots.add(_newTx);
-    });
-  }
-
   void _startAddNewSlot(BuildContext ctx) {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
           return GestureDetector(
             onTap: () {},
-            child: AddSlot(_addNewSlot),
+            child: AddSlot(),
             behavior: HitTestBehavior.opaque,
           );
         });
-  }
-
-  void _deleteSlot(String id) {
-    setState(() {
-      _specialistSlots.removeWhere((tx) {
-        return tx.id == id;
-      });
-    });
   }
 
   @override
@@ -70,7 +44,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                         appBar.preferredSize.height -
                         MediaQuery.of(context).padding.top) *
                     0.6,
-                child: SlotsList(_specialistSlots, _deleteSlot)),
+                child: SlotsList()),
             RoundedButton(
               text: "Add a new slot",
               press: () {

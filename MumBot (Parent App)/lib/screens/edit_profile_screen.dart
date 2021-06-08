@@ -164,6 +164,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(successEditintProfileSnackBar);
                   }
+                  _finalNameController.clear();
+                  _finalEmailController.clear();
+                  _finalPhoneController.clear();
                 },
               ),
               SizedBox(height: size.height * 0.01),

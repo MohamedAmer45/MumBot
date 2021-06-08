@@ -8,10 +8,10 @@ import 'package:mumbot_v2/widgets/LineDivider.dart';
 import 'package:mumbot_v2/widgets/rounded_button.dart';
 import 'package:mumbot_v2/widgets/rounded_input_field.dart';
 
-class BookInquiryScreen extends StatefulWidget {
+class InquiryPaymentScreen extends StatefulWidget {
   static const routeName = '/bookinquiry-screen';
   @override
-  _BookInquiryScreenState createState() => _BookInquiryScreenState();
+  _InquiryPaymentScreenState createState() => _InquiryPaymentScreenState();
 }
 
 final bookingSnackBar = SnackBar(
@@ -54,7 +54,7 @@ final successbookingSnackBar = SnackBar(
 );
 final _bookingFormKey = GlobalKey<FormState>();
 
-class _BookInquiryScreenState extends State<BookInquiryScreen> {
+class _InquiryPaymentScreenState extends State<InquiryPaymentScreen> {
   final _cardNameFocus = FocusNode();
   final _cardNumberFocus = FocusNode();
   final _cardCvvFocus = FocusNode();
@@ -207,7 +207,7 @@ class _BookInquiryScreenState extends State<BookInquiryScreen> {
               ),
               SizedBox(height: size.height * 0.2),
               RoundedButton(
-                text: "Confirm Session",
+                text: "Confirm Payment",
                 press: () async {
                   if (_bookingFormKey.currentState.validate()) {
                     _bookingFormKey.currentState.save();

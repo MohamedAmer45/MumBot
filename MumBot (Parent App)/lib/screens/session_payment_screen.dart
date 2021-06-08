@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mumbot_v2/api/parent_api.dart';
 
 import 'package:mumbot_v2/screens/chat_screen.dart';
+import 'package:mumbot_v2/screens/login_screen.dart';
+import 'package:mumbot_v2/screens/sessions_screen.dart';
 
 import 'package:mumbot_v2/widgets/constants.dart';
 import 'package:mumbot_v2/widgets/LineDivider.dart';
 import 'package:mumbot_v2/widgets/rounded_button.dart';
 import 'package:mumbot_v2/widgets/rounded_input_field.dart';
+import 'package:mumbot_v2/widgets/sessions_list.dart';
 
-class BookSessionScreen extends StatefulWidget {
+import 'booking_session_screen.dart';
+
+class SessionPaymentScreen extends StatefulWidget {
   static const routeName = '/booksession-screen';
   @override
-  _BookSessionScreenState createState() => _BookSessionScreenState();
+  _SessionPaymentScreenState createState() => _SessionPaymentScreenState();
 }
 
 final bookingSnackBar = SnackBar(
@@ -54,7 +60,7 @@ final successbookingSnackBar = SnackBar(
 );
 final _bookingFormKey = GlobalKey<FormState>();
 
-class _BookSessionScreenState extends State<BookSessionScreen> {
+class _SessionPaymentScreenState extends State<SessionPaymentScreen> {
   final _cardNameFocus = FocusNode();
   final _cardNumberFocus = FocusNode();
   final _cardCvvFocus = FocusNode();
@@ -86,7 +92,7 @@ class _BookSessionScreenState extends State<BookSessionScreen> {
             children: <Widget>[
               SizedBox(height: size.height * 0.05),
               Text(
-                "Book a Chat Session",
+                "Book a Video Session",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21.5),
               ),
               LineDivider(),
@@ -190,6 +196,7 @@ class _BookSessionScreenState extends State<BookSessionScreen> {
                       hintText: "YY",
                       // ignore: deprecated_member_use
                       inputFormatters: [
+                        // ignore: deprecated_member_use
                         WhitelistingTextInputFormatter.digitsOnly
                       ],
                       focusNode: _cardMmFocus,
@@ -205,7 +212,7 @@ class _BookSessionScreenState extends State<BookSessionScreen> {
               ),
               SizedBox(height: size.height * 0.2),
               RoundedButton(
-                text: "Confirm Session",
+                text: "Confirm Payment",
                 press: () async {
                   if (_bookingFormKey.currentState.validate()) {
                     _bookingFormKey.currentState.save();
@@ -214,10 +221,14 @@ class _BookSessionScreenState extends State<BookSessionScreen> {
                     await Future.delayed(const Duration(seconds: 3));
                     ScaffoldMessenger.of(context)
                         .showSnackBar(successbookingSnackBar);
+                    setState(() {
+                      ParentAPI().updateSlotsListone(slotId);
+                      ParentAPI().addSession(parentLoginData['id'], slotId);
+                    });
 
                     await Future.delayed(const Duration(seconds: 1));
                     Navigator.of(context)
-                        .pushReplacementNamed(ChatScreen.routeName);
+                        .pushReplacementNamed(SessionsScreen.routeName);
                   }
                 },
               ),
