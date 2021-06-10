@@ -31,6 +31,12 @@ class _AddSlotState extends State<AddSlot> {
     setState(() {
       SpecialistAPI().addSlot(_specialistId, _freeDay, _slotDate,
           _slotStartTimeIntger, _slotStartTime, _slotEndTime);
+      print(_specialistId);
+      print(_freeDay);
+      print(_slotDate);
+      print(_slotStartTimeIntger);
+      print(_slotStartTime);
+      print(_slotEndTime);
     });
   }
 

@@ -23,7 +23,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
-        //title: Text('Video Sessions'),
+        title: Text('Video Sessions'),
       ),
       body: SingleChildScrollView(
         child: Column(

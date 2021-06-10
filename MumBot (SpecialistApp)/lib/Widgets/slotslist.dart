@@ -5,6 +5,8 @@ import 'package:parenting_specialist/Screens/login_screen.dart';
 import 'package:parenting_specialist/models/addslotmodel.dart';
 import 'package:http/http.dart' as http;
 
+int _slotId;
+
 class SlotsList extends StatefulWidget {
   @override
   _SlotsListState createState() => _SlotsListState();
@@ -19,10 +21,10 @@ class _SlotsListState extends State<SlotsList> {
   @override
   void initState() {
     super.initState();
-    fetchSlotsData(specialistLoginData['id']);
+    fetchSlots(specialistLoginData['id']);
   }
 
-  Future<AddSlotModel> fetchSlotsData(int id) async {
+  Future<AddSlotModel> fetchSlots(int id) async {
     final response =
         await http.get(Uri.parse('http://10.0.2.2:8000/apis/api/slot/$id/'));
 
@@ -56,7 +58,7 @@ class _SlotsListState extends State<SlotsList> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      fetchSlotsData(specialistLoginData['id']);
+      fetchSlots(specialistLoginData['id']);
     });
     // return widget._slots.isEmpty
     //     ? LayoutBuilder(builder: (ctx, constraints) {
@@ -86,7 +88,7 @@ class _SlotsListState extends State<SlotsList> {
         _freeDay = _data[index]['free_day'];
         _slotDate = _data[index]['slot_date'];
         _slotStartTime = _data[index]['slot_start_time'];
-        int _slotId = _data[index]['id'];
+        _slotId = _data[index]['id'];
         return Card(
           elevation: 5,
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),

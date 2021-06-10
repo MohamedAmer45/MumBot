@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mumbot_v2/models/video_session.dart';
+import 'package:mumbot_v2/models/fetch_sessions_data.dart';
 import 'package:mumbot_v2/screens/session_payment_screen.dart';
 import 'package:mumbot_v2/screens/sessions_screen.dart';
 import 'package:mumbot_v2/screens/user_panel_screen.dart';
@@ -30,7 +30,7 @@ String _slotStartTime;
 String _freeDay = '';
 
 class _BookingSessionScreenState extends State<BookingSessionScreen> {
-  Future<VideoSession> fetchDateSlots(String date) async {
+  Future<FetchSessionsData> fetchDataSlots(String date) async {
     final response = await http.post(
       Uri.parse('http://10.0.2.2:8000/apis/api/slotsearch/'),
       headers: <String, String>{
@@ -73,7 +73,7 @@ class _BookingSessionScreenState extends State<BookingSessionScreen> {
                     text: DateFormat.E().format(_time),
                     press: () {
                       String val = DateFormat('yyyy-MM-dd').format(_time);
-                      fetchDateSlots(val);
+                      fetchDataSlots(val);
                       _freeDay = DateFormat.E().format(_time);
                     },
                   ),
@@ -85,7 +85,7 @@ class _BookingSessionScreenState extends State<BookingSessionScreen> {
                     press: () {
                       String val = DateFormat('yyyy-MM-dd')
                           .format(_time.add(Duration(days: 1)));
-                      fetchDateSlots(val);
+                      fetchDataSlots(val);
                       _freeDay = DateFormat.E().format(_time);
                     },
                   ),
@@ -97,7 +97,7 @@ class _BookingSessionScreenState extends State<BookingSessionScreen> {
                     press: () {
                       String val = DateFormat('yyyy-MM-dd')
                           .format(_time.add(Duration(days: 2)));
-                      fetchDateSlots(val);
+                      fetchDataSlots(val);
                       _freeDay = DateFormat.E().format(_time);
                     },
                   ),
@@ -109,7 +109,7 @@ class _BookingSessionScreenState extends State<BookingSessionScreen> {
                     press: () {
                       String val = DateFormat('yyyy-MM-dd')
                           .format(_time.add(Duration(days: 3)));
-                      fetchDateSlots(val);
+                      fetchDataSlots(val);
                       _freeDay = DateFormat.E().format(_time);
                     },
                   ),
@@ -121,7 +121,7 @@ class _BookingSessionScreenState extends State<BookingSessionScreen> {
                     press: () {
                       String val = DateFormat('yyyy-MM-dd')
                           .format(_time.add(Duration(days: 4)));
-                      fetchDateSlots(val);
+                      fetchDataSlots(val);
                       _freeDay = DateFormat.E().format(_time);
                     },
                   ),
@@ -133,7 +133,7 @@ class _BookingSessionScreenState extends State<BookingSessionScreen> {
                     press: () {
                       String val = DateFormat('yyyy-MM-dd')
                           .format(_time.add(Duration(days: 5)));
-                      fetchDateSlots(val);
+                      fetchDataSlots(val);
                       _freeDay = DateFormat.E().format(_time);
                     },
                   ),
@@ -145,7 +145,7 @@ class _BookingSessionScreenState extends State<BookingSessionScreen> {
                     press: () {
                       String val = DateFormat('yyyy-MM-dd')
                           .format(_time.add(Duration(days: 6)));
-                      fetchDateSlots(val);
+                      fetchDataSlots(val);
                       _freeDay = DateFormat.E().format(_time);
                     },
                   ),

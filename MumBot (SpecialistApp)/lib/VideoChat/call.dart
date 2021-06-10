@@ -5,6 +5,12 @@ import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
 import 'package:flutter/material.dart';
 import 'package:parenting_specialist/VideoChat/settings.dart';
+import 'package:parenting_specialist/Widgets/sessionslist.dart';
+import 'package:parenting_specialist/Widgets/slotslist.dart';
+import 'package:parenting_specialist/api/specialist_api.dart';
+import 'package:parenting_specialist/models/addslotmodel.dart';
+import 'package:parenting_specialist/models/video_session.dart';
+import 'package:http/http.dart' as http;
 
 class CallPage extends StatefulWidget {
   /// non-modifiable channel name of the page
@@ -274,6 +280,9 @@ class _CallPageState extends State<CallPage> {
 
   void _onCallEnd(BuildContext context) {
     Navigator.pop(context);
+    setState(() {
+      // deleteSlot(slotId);
+    });
   }
 
   void _onToggleMute() {
@@ -285,6 +294,22 @@ class _CallPageState extends State<CallPage> {
 
   void _onSwitchCamera() {
     _engine.switchCamera();
+  }
+
+  Future<AddSlotModel> deleteSlot(int id) async {
+    final http.Response response = await http.delete(
+      Uri.parse('http://10.0.2.2:8000/apis/api/slot/delete/$id/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    // if (response.statusCode == 200) {
+    //   print('slot Deleted');
+    //   return AddSlotModel.fromJson(jsonDecode(response.body));
+    // } else {
+    //   throw Exception(response.statusCode);
+    // }
   }
 
   @override

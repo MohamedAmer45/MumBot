@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:parenting_specialist/models/addslotmodel.dart';
 import 'package:parenting_specialist/models/answer.dart';
 import 'package:parenting_specialist/models/specialist.dart';
 
@@ -45,6 +46,46 @@ class SpecialistAPI {
     }
   }
 
+  Future<Specialist> updateSlotsListone(int id) async {
+    final response = await http.put(
+      Uri.parse('http://10.0.2.2:8000/apis/api/slot/update/$id/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, int>{'booked': 1}),
+    );
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      return Specialist.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception(response.statusCode);
+    }
+  }
+
+  Future<Specialist> updateSlotsListzero(int id) async {
+    final response = await http.put(
+      Uri.parse('http://10.0.2.2:8000/apis/api/slot/update/$id/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, int>{'booked': 0}),
+    );
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      return Specialist.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception(response.statusCode);
+    }
+  }
+
   Future<Answer> addAnswer(int id, String answerBody, int specialistId) async {
     final response = await http.post(
       Uri.parse('http://10.0.2.2:8000/apis/api/answer/$id/'),
@@ -70,7 +111,7 @@ class SpecialistAPI {
     }
   }
 
-  Future<Answer> addSlot(
+  Future<AddSlotModel> addSlot(
     int specialistId,
     String freeDay,
     String slotDate,
@@ -91,6 +132,7 @@ class SpecialistAPI {
         'slot_start_time': slotStartTime,
         'slot_end_time': slotEndTime,
         'booked': 0,
+        'RelatedApp': [],
       }),
     );
 
@@ -98,7 +140,7 @@ class SpecialistAPI {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       print('Slot Added');
-      return Answer.fromJson(jsonDecode(response.body));
+      return AddSlotModel.fromJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.

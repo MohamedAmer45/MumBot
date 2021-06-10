@@ -1,4 +1,4 @@
-class FetchSessionsData {
+class sessionmodel {
   String id;
   final int specialistId;
   final String freeDay;
@@ -7,20 +7,20 @@ class FetchSessionsData {
   final String slotStartTime;
   final String slotEndTime;
   final int booked;
-  final List relatedApp;
-  FetchSessionsData(
-      {this.id,
-      this.specialistId,
-      this.freeDay,
-      this.slotDate,
-      this.slotStartTimeInteger,
-      this.slotStartTime,
-      this.slotEndTime,
-      this.booked,
-      this.relatedApp});
 
-  factory FetchSessionsData.fromJson(Map<String, dynamic> json) {
-    return FetchSessionsData(
+  sessionmodel({
+    this.id,
+    this.specialistId,
+    this.freeDay,
+    this.slotDate,
+    this.slotStartTimeInteger,
+    this.slotStartTime,
+    this.slotEndTime,
+    this.booked,
+  });
+
+  factory sessionmodel.fromJson(Map<String, dynamic> json) {
+    return sessionmodel(
       id: json['id'],
       specialistId: json['schedule_specialist'],
       freeDay: json['free_day'],
@@ -29,7 +29,6 @@ class FetchSessionsData {
       slotStartTime: json['slot_start_time'],
       slotEndTime: json['slot_end_time'],
       booked: json['booked'],
-      relatedApp: json['RelatedApp'],
     );
   }
   dynamic toJson() => {
@@ -40,6 +39,5 @@ class FetchSessionsData {
         'slot_start_time': slotStartTime,
         'slot_end_time': slotEndTime,
         'booked': booked,
-        'RelatedApp': relatedApp,
       };
 }

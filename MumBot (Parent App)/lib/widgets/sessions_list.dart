@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:mumbot_v2/api/parent_api.dart';
 import 'package:mumbot_v2/models/addsession.dart';
 import 'package:mumbot_v2/models/fetch_sessions_data.dart';
-import 'package:mumbot_v2/models/video_session.dart';
 import 'package:mumbot_v2/screens/booking_session_screen.dart';
 import 'package:mumbot_v2/screens/login_screen.dart';
 
@@ -13,8 +12,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:http/http.dart' as http;
 
 import '../VideoChat/call.dart';
-
-Map<String, dynamic> sessionSlotId;
 
 //String _date;
 
@@ -28,17 +25,17 @@ class SessionsList extends StatefulWidget {
 List _data;
 String _slotEndTime;
 String _slotStartTime;
+dynamic sessionSlotId;
+int sessionId;
 
 class _SessionsListState extends State<SessionsList> {
   @override
   void initState() {
     super.initState();
 
-    fetchSessionId();
-    fetchSessions(sessionSlotIdd);
+    // fetchSessionId();
+    fetchSessions(parentLoginData['id']);
   }
-
-  int sessionSlotIdd = sessionSlotId['video_slot'];
 
   /// create a channelController to retrieve text value
   final _channelController = TextEditingController();
@@ -57,13 +54,14 @@ class _SessionsListState extends State<SessionsList> {
 
   // Future<AddSlotModel> _fetchSlots;
   Future<FetchSessionsData> fetchSessions(int id) async {
-    final response =
-        await http.get(Uri.parse('http://10.0.2.2:8000/apis/api/slot/$id/'));
+    final response = await http.get(
+        Uri.parse('http://10.0.2.2:8000/apis/api/parentappointments/$id/'));
 
     if (response.statusCode == 200) {
       setState(() {
         var _resBody = json.decode(response.body);
         _data = _resBody;
+        print(sessionSlotId);
       });
     } else {
       print('404');
@@ -72,19 +70,19 @@ class _SessionsListState extends State<SessionsList> {
   }
 
   // ignore: missing_return
-  Future<AddSession> fetchSessionId() async {
-    final response = await http.get(
-      Uri.parse(
-          'http://10.0.2.2:8000/apis/api/parentappointments/${parentLoginData['id']}/'),
-    );
-    if (response.statusCode == 200) {
-      sessionSlotId = jsonDecode(response.body) as Map<String, dynamic>;
-    } else {
-      throw Exception('Failed to load sessions');
-    }
-  }
+  // Future<AddSession> fetchSessionId() async {
+  //   final response = await http.get(
+  //     Uri.parse(
+  //         'http://10.0.2.2:8000/apis/api/parentappointments/${parentLoginData['id']}/'),
+  //   );
+  //   if (response.statusCode == 200) {
+  //     sessionSlotId = jsonDecode(response.body) as Map<String, dynamic>;
+  //   } else {
+  //     throw Exception('Failed to load sessions');
+  //   }
+  // }
 
-  Future<VideoSession> deleteSession(int id) async {
+  Future<FetchSessionsData> deleteSession(int id) async {
     final http.Response response = await http.delete(
       Uri.parse('http://10.0.2.2:8000/apis/api/appointment/delete/$id/'),
       headers: <String, String>{
@@ -96,8 +94,8 @@ class _SessionsListState extends State<SessionsList> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      fetchSessionId();
-      fetchSessions(sessionSlotIdd);
+      // fetchSessionId();
+      fetchSessions(parentLoginData['id']);
     });
     // return widget._slots.isEmpty
     //     ? LayoutBuilder(builder: (ctx, constraints) {
@@ -126,7 +124,9 @@ class _SessionsListState extends State<SessionsList> {
       itemBuilder: (ctx, index) {
         _slotEndTime = _data[index]['slot_end_time'];
         _slotStartTime = _data[index]['slot_start_time'];
-        int _sessionId = _data[index]['id'];
+        sessionSlotId = _data[index]['RelatedApp'][0];
+        sessionId = _data[index]['id'];
+
         return Card(
           elevation: 5,
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
@@ -174,8 +174,8 @@ class _SessionsListState extends State<SessionsList> {
                         onPressed: () {
                           // widget.deleteTx(widget.slots[index].id);
                           setState(() {
-                            deleteSession(_sessionId);
-                            ParentAPI().updateSlotsListzero(slotId);
+                            deleteSession(sessionSlotId);
+                            ParentAPI().updateSlotsListzero(sessionId);
                           });
                         }),
                   ],

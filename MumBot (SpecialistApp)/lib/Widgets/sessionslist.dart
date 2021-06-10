@@ -4,7 +4,10 @@ import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:parenting_specialist/Screens/login_screen.dart';
+import 'package:parenting_specialist/Widgets/slotslist.dart';
+import 'package:parenting_specialist/api/specialist_api.dart';
 import 'package:parenting_specialist/models/addslotmodel.dart';
+import 'package:parenting_specialist/models/slot.dart';
 import 'package:parenting_specialist/models/specialist.dart';
 import 'package:parenting_specialist/models/video_session.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -12,9 +15,8 @@ import 'package:http/http.dart' as http;
 
 import '../VideoChat/call.dart';
 
-String _date;
-
 class SessionsList extends StatefulWidget {
+  //method() => createState().deleteSession(sessionId);
   static const routeName = '/videolist-screen';
 
   @override
@@ -29,7 +31,7 @@ class _SessionsListState extends State<SessionsList> {
   @override
   void initState() {
     super.initState();
-    fetchSessions();
+    fetchSessions(specialistLoginData['id']);
   }
 
   /// create a channelController to retrieve text value
@@ -48,10 +50,10 @@ class _SessionsListState extends State<SessionsList> {
   }
   // Future<AddSlotModel> _fetchSlots;
 
-  Future<AddSlotModel> fetchSessions() async {
+  // ignore: missing_return
+  Future<AddSlotModel> fetchSessions(int id) async {
     final response = await http.get(
-      Uri.parse(
-          'http://10.0.2.2:8000/apis/api/specialistappointments/${specialistLoginData['id']}/'),
+      Uri.parse('http://10.0.2.2:8000/apis/api/specialistappointments/$id/'),
     );
     if (response.statusCode == 200) {
       setState(() {
@@ -63,19 +65,13 @@ class _SessionsListState extends State<SessionsList> {
     }
   }
 
-  Future<VideoSession> deleteSession(int id) async {
-    final http.Response response = await http.delete(
-      Uri.parse('http://10.0.2.2:8000/apis/api/appointment/delete/$id/'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-  }
+  // ignore: missing_return
+  Future<VideoSession> deleteSession(int id) async {}
 
   @override
   Widget build(BuildContext context) {
     setState(() {
-      fetchSessions();
+      fetchSessions(specialistLoginData['id']);
     });
     // return widget._slots.isEmpty
     //     ? LayoutBuilder(builder: (ctx, constraints) {
@@ -104,7 +100,6 @@ class _SessionsListState extends State<SessionsList> {
       itemBuilder: (ctx, index) {
         _slotEndTime = _data[index]['slot_end_time'];
         _slotStartTime = _data[index]['slot_start_time'];
-        int _sessionId = _data[index]['id'];
         return Card(
           elevation: 5,
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
@@ -146,15 +141,15 @@ class _SessionsListState extends State<SessionsList> {
                         onPressed: () {
                           onJoin();
                         }),
-                    IconButton(
-                        icon: Icon(Icons.delete),
-                        color: Theme.of(context).errorColor,
-                        onPressed: () {
-                          // widget.deleteTx(widget.slots[index].id);
-                          setState(() {
-                            deleteSession(_sessionId);
-                          });
-                        }),
+                    // IconButton(
+                    //     icon: Icon(Icons.delete),
+                    //     color: Theme.of(context).errorColor,
+                    //     onPressed: () {
+                    //       // widget.deleteTx(widget.slots[index].id);
+                    //       setState(() {
+                    //         deleteSession(sessionId);
+                    //       });
+                    //     }),
                   ],
                 ),
               )),
