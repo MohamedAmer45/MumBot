@@ -222,6 +222,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                         generateMd5EditPassword(_newPasswordController.text),
                       );
                     });
+
                     _currentPasswordController.clear();
                     _newPasswordController.clear();
                     _repeatnewPasswordController.clear();

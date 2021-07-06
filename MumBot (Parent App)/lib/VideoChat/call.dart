@@ -5,6 +5,10 @@ import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
 import 'package:flutter/material.dart';
 import 'package:mumbot_v2/VideoChat/settings.dart';
+import 'package:mumbot_v2/api/parent_api.dart';
+import 'package:mumbot_v2/models/fetch_sessions_data.dart';
+import 'package:http/http.dart' as http;
+import 'package:mumbot_v2/widgets/sessions_list.dart';
 
 class CallPage extends StatefulWidget {
   /// non-modifiable channel name of the page
@@ -273,6 +277,10 @@ class _CallPageState extends State<CallPage> {
   }
 
   void _onCallEnd(BuildContext context) {
+    setState(() {
+      deleteSession(sessionSlotId);
+      ParentAPI().updateSlotsListzero(sessionId);
+    });
     Navigator.pop(context);
   }
 
@@ -285,6 +293,15 @@ class _CallPageState extends State<CallPage> {
 
   void _onSwitchCamera() {
     _engine.switchCamera();
+  }
+
+  Future<FetchSessionsData> deleteSession(int id) async {
+    final http.Response response = await http.delete(
+      Uri.parse('http://10.0.2.2:8000/apis/api/appointment/delete/$id/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
   }
 
   @override

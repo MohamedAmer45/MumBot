@@ -25,9 +25,9 @@ class _MyHomePageState extends State<ChatScreen> {
     super.initState();
     // userID = '1';
     Backendless.initApp(
-        "92FE02D3-C7CC-9235-FF70-5B97F4477F00",
-        "AABDF7B8-D50C-4C9E-AF44-5EAF50B0D57A",
-        "33705851-F89A-4807-82F5-7DF4A7B4F789");
+        "0F85F2E6-240E-F1C7-FF53-0695F8E5E300",
+        "7021D8A5-CA5E-470C-8843-0BFAC2644E7E",
+        "1D407144-27F8-45A4-A20F-DA02C22D6F00");
     initListeners();
   }
 
@@ -151,7 +151,11 @@ class _MyHomePageState extends State<ChatScreen> {
                         color: Colors.blue[900],
                       ),
                       onPressed: () {
-                        onMessageSubmitted(myController.text);
+                        if (myController.text.isEmpty) {
+                          print("empty message");
+                        } else {
+                          onMessageSubmitted(myController.text);
+                        }
                       },
                     ),
                   ),

@@ -164,6 +164,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     // generateMd5Login(_passwordController.text),
                   );
                 });
+                _emailController.clear();
+                _passwordController.clear();
               },
             ),
             Row(

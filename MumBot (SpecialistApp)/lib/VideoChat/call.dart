@@ -281,7 +281,7 @@ class _CallPageState extends State<CallPage> {
   void _onCallEnd(BuildContext context) {
     Navigator.pop(context);
     setState(() {
-      // deleteSlot(slotId);
+      deleteSlot(slotId2);
     });
   }
 

@@ -14,7 +14,7 @@ import 'package:mumbot_v2/widgets/rounded_button.dart';
 import 'package:mumbot_v2/widgets/sessions_list.dart';
 import 'package:http/http.dart' as http;
 
-DateTime _time = DateTime.now();
+DateTime time = DateTime.now();
 int slotId;
 
 class BookingSessionScreen extends StatefulWidget {
@@ -27,7 +27,7 @@ class BookingSessionScreen extends StatefulWidget {
 List _data;
 String _slotEndTime;
 String _slotStartTime;
-String _freeDay = '';
+String freeDay = '';
 
 class _BookingSessionScreenState extends State<BookingSessionScreen> {
   Future<FetchSessionsData> fetchDataSlots(String date) async {
@@ -70,83 +70,90 @@ class _BookingSessionScreenState extends State<BookingSessionScreen> {
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
                   DaysButton(
-                    text: DateFormat.E().format(_time),
+                    text: DateFormat.E().format(time),
                     press: () {
-                      String val = DateFormat('yyyy-MM-dd').format(_time);
+                      String val = DateFormat('yyyy-MM-dd').format(time);
                       fetchDataSlots(val);
-                      _freeDay = DateFormat.E().format(_time);
+                      freeDay = DateFormat.E().format(time);
                     },
                   ),
                   SizedBox(
                     width: size.width * 0.03,
                   ),
                   DaysButton(
-                    text: DateFormat.E().format(_time.add(Duration(days: 1))),
+                    text: DateFormat.E().format(time.add(Duration(days: 1))),
                     press: () {
                       String val = DateFormat('yyyy-MM-dd')
-                          .format(_time.add(Duration(days: 1)));
+                          .format(time.add(Duration(days: 1)));
                       fetchDataSlots(val);
-                      _freeDay = DateFormat.E().format(_time);
+                      freeDay =
+                          DateFormat.E().format(time.add(Duration(days: 1)));
+                      // day = freeDay;
                     },
                   ),
                   SizedBox(
                     width: size.width * 0.03,
                   ),
                   DaysButton(
-                    text: DateFormat.E().format(_time.add(Duration(days: 2))),
+                    text: DateFormat.E().format(time.add(Duration(days: 2))),
                     press: () {
                       String val = DateFormat('yyyy-MM-dd')
-                          .format(_time.add(Duration(days: 2)));
+                          .format(time.add(Duration(days: 2)));
                       fetchDataSlots(val);
-                      _freeDay = DateFormat.E().format(_time);
+                      freeDay =
+                          DateFormat.E().format(time.add(Duration(days: 2)));
                     },
                   ),
                   SizedBox(
                     width: size.width * 0.03,
                   ),
                   DaysButton(
-                    text: DateFormat.E().format(_time.add(Duration(days: 3))),
+                    text: DateFormat.E().format(time.add(Duration(days: 3))),
                     press: () {
                       String val = DateFormat('yyyy-MM-dd')
-                          .format(_time.add(Duration(days: 3)));
+                          .format(time.add(Duration(days: 3)));
                       fetchDataSlots(val);
-                      _freeDay = DateFormat.E().format(_time);
+                      freeDay =
+                          DateFormat.E().format(time.add(Duration(days: 3)));
                     },
                   ),
                   SizedBox(
                     width: size.width * 0.03,
                   ),
                   DaysButton(
-                    text: DateFormat.E().format(_time.add(Duration(days: 4))),
+                    text: DateFormat.E().format(time.add(Duration(days: 4))),
                     press: () {
                       String val = DateFormat('yyyy-MM-dd')
-                          .format(_time.add(Duration(days: 4)));
+                          .format(time.add(Duration(days: 4)));
                       fetchDataSlots(val);
-                      _freeDay = DateFormat.E().format(_time);
+                      freeDay =
+                          DateFormat.E().format(time.add(Duration(days: 4)));
                     },
                   ),
                   SizedBox(
                     width: size.width * 0.03,
                   ),
                   DaysButton(
-                    text: DateFormat.E().format(_time.add(Duration(days: 5))),
+                    text: DateFormat.E().format(time.add(Duration(days: 5))),
                     press: () {
                       String val = DateFormat('yyyy-MM-dd')
-                          .format(_time.add(Duration(days: 5)));
+                          .format(time.add(Duration(days: 5)));
                       fetchDataSlots(val);
-                      _freeDay = DateFormat.E().format(_time);
+                      freeDay =
+                          DateFormat.E().format(time.add(Duration(days: 5)));
                     },
                   ),
                   SizedBox(
                     width: size.width * 0.03,
                   ),
                   DaysButton(
-                    text: DateFormat.E().format(_time.add(Duration(days: 6))),
+                    text: DateFormat.E().format(time.add(Duration(days: 6))),
                     press: () {
                       String val = DateFormat('yyyy-MM-dd')
-                          .format(_time.add(Duration(days: 6)));
+                          .format(time.add(Duration(days: 6)));
                       fetchDataSlots(val);
-                      _freeDay = DateFormat.E().format(_time);
+                      freeDay =
+                          DateFormat.E().format(time.add(Duration(days: 6)));
                     },
                   ),
                 ],
@@ -179,7 +186,7 @@ class _BookingSessionScreenState extends State<BookingSessionScreen> {
                                 child: Text(
                                   // DateFormat.E().format(
                                   //   DateTime.parse(_freeDay),
-                                  _freeDay,
+                                  freeDay,
                                   //  ),
                                 ),
                               ),

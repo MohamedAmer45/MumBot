@@ -5,7 +5,7 @@ import 'package:parenting_specialist/Screens/login_screen.dart';
 import 'package:parenting_specialist/models/addslotmodel.dart';
 import 'package:http/http.dart' as http;
 
-int _slotId;
+int slotId;
 
 class SlotsList extends StatefulWidget {
   @override
@@ -16,6 +16,7 @@ List _data;
 String _freeDay;
 String _slotDate;
 String _slotStartTime;
+int slotId2;
 
 class _SlotsListState extends State<SlotsList> {
   @override
@@ -88,7 +89,8 @@ class _SlotsListState extends State<SlotsList> {
         _freeDay = _data[index]['free_day'];
         _slotDate = _data[index]['slot_date'];
         _slotStartTime = _data[index]['slot_start_time'];
-        _slotId = _data[index]['id'];
+        slotId = _data[index]['id'];
+        int slotId1 = slotId;
         return Card(
           elevation: 5,
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
@@ -130,7 +132,8 @@ class _SlotsListState extends State<SlotsList> {
                         onPressed: () {
                           // widget.deleteTx(widget.slots[index].id);
                           setState(() {
-                            deleteSlot(_slotId);
+                            slotId2 = slotId1;
+                            deleteSlot(slotId1);
                           });
                         }),
                   ],

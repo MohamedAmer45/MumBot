@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parenting_specialist/Screens/home_page.dart';
 import 'package:parenting_specialist/Widgets/constants.dart';
 import 'package:parenting_specialist/api/specialist_api.dart';
 import 'package:parenting_specialist/models/specialist.dart';
@@ -151,8 +152,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 maxLines: 3,
                 validator: (value) {
                   if (value.isEmpty) {
-                    return PhoneNumberNullError;
-                  } else if (value.length < 150) {
+                    return BriefNullError;
+                  } else if (value.length > 100) {
                     return LongBioError;
                   }
                   return null;
@@ -177,6 +178,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           _finalNameController.text,
                           _finalEmailController.text,
                           _finalPhoneController.text);
+                      Navigator.of(context).pop();
+                      Navigator.of(context)
+                          .pushReplacementNamed(HomePage.routeName);
                     });
                     ScaffoldMessenger.of(context)
                         .showSnackBar(successEditintProfileSnackBar);

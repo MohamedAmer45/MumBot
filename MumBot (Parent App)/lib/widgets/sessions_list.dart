@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mumbot_v2/api/parent_api.dart';
 import 'package:mumbot_v2/models/addsession.dart';
 import 'package:mumbot_v2/models/fetch_sessions_data.dart';
@@ -27,6 +28,9 @@ String _slotEndTime;
 String _slotStartTime;
 dynamic sessionSlotId;
 int sessionId;
+String _freeDay;
+int sessionId2;
+int sessionSlotId2;
 
 class _SessionsListState extends State<SessionsList> {
   @override
@@ -126,7 +130,9 @@ class _SessionsListState extends State<SessionsList> {
         _slotStartTime = _data[index]['slot_start_time'];
         sessionSlotId = _data[index]['RelatedApp'][0];
         sessionId = _data[index]['id'];
-
+        _freeDay = _data[index]['free_day'];
+        int sessionId1 = sessionId;
+        int sessionSlotId1 = sessionSlotId;
         return Card(
           elevation: 5,
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
@@ -136,12 +142,12 @@ class _SessionsListState extends State<SessionsList> {
                 child: Container(
                   padding: EdgeInsets.all(5),
                   child: FittedBox(
-                    child: Text(
-                      // DateFormat.E().format(
-                      //   DateTime.parse(_freeDay),
-                      _slotStartTime,
-                      //  ),
-                    ),
+                    child: Text(_freeDay
+                        // DateFormat.E().format(
+                        //   DateTime.parse(freeDay),
+                        // _slotStartTime,
+                        // ),
+                        ),
                   ),
                 ),
               ),
@@ -174,8 +180,10 @@ class _SessionsListState extends State<SessionsList> {
                         onPressed: () {
                           // widget.deleteTx(widget.slots[index].id);
                           setState(() {
-                            deleteSession(sessionSlotId);
-                            ParentAPI().updateSlotsListzero(sessionId);
+                            sessionId2 = sessionId1;
+                            sessionSlotId2 = sessionSlotId1;
+                            deleteSession(sessionSlotId1);
+                            ParentAPI().updateSlotsListzero(sessionId1);
                           });
                         }),
                   ],

@@ -26,6 +26,7 @@ class SessionsList extends StatefulWidget {
 List _data;
 String _slotEndTime;
 String _slotStartTime;
+String _freeDay;
 
 class _SessionsListState extends State<SessionsList> {
   @override
@@ -100,6 +101,7 @@ class _SessionsListState extends State<SessionsList> {
       itemBuilder: (ctx, index) {
         _slotEndTime = _data[index]['slot_end_time'];
         _slotStartTime = _data[index]['slot_start_time'];
+        _freeDay = _data[index]['free_day'];
         return Card(
           elevation: 5,
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
@@ -109,12 +111,12 @@ class _SessionsListState extends State<SessionsList> {
                 child: Container(
                   padding: EdgeInsets.all(5),
                   child: FittedBox(
-                    child: Text(
-                      // DateFormat.E().format(
-                      //   DateTime.parse(_freeDay),
-                      _slotStartTime,
-                      //  ),
-                    ),
+                    child: Text(_freeDay
+                        // DateFormat.E().format(
+                        //   DateTime.parse(_freeDay),
+                        // _slotStartTime,
+                        //  ),
+                        ),
                   ),
                 ),
               ),

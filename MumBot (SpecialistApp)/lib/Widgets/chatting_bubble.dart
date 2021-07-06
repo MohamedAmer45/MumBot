@@ -5,10 +5,11 @@ Widget chattingBubble(String message, int data) {
   return Container(
     child: Row(
       mainAxisAlignment:
-          data == 1 ? MainAxisAlignment.end : MainAxisAlignment.start,
+          data == 0 ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
-        data == 0
+        data == 1
             ? Container(
+                padding: EdgeInsets.all(5),
                 height: 60,
                 width: 60,
                 child: CircleAvatar(
@@ -20,7 +21,7 @@ Widget chattingBubble(String message, int data) {
           padding: EdgeInsets.all(10.0),
           child: Bubble(
               radius: Radius.circular(20.0),
-              color: data == 0 ? Colors.blue : Colors.orangeAccent,
+              color: data == 1 ? Colors.blue : Colors.orangeAccent,
               elevation: 0.0,
               child: Padding(
                 padding: EdgeInsets.all(2.0),
@@ -43,8 +44,9 @@ Widget chattingBubble(String message, int data) {
                 ),
               )),
         ),
-        data == 1
+        data == 0
             ? Container(
+                padding: EdgeInsets.all(5),
                 height: 60,
                 width: 60,
                 child: CircleAvatar(

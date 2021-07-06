@@ -7,6 +7,7 @@ final RegExp emailValidator = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 // final RegExp nameValidator = RegExp(r"/^[a-z ,.'-]+$/");
 final RegExp phoneValidator = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
 const String EmailNullError = "Please Enter your email";
+const String BriefNullError = "Please Enter your Bio";
 const String InvalidEmailError = "Please Enter Valid Email";
 const String PassNullError = "Please Enter Your Password";
 const String AnswerNullError = "Enter a Valid Answer";

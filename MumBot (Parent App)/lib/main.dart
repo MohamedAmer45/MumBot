@@ -73,10 +73,10 @@ class _MyHomePageState extends State<MyHomePage> {
   WatsonAssistantV2Credential credential = WatsonAssistantV2Credential(
       version: '2019-02-28',
       username: 'apikey',
-      apikey: 'IIMOpOIzQfRkf5Bu5JwfDK1SmRpXcgLAhc4MtMNLtpgc',
-      assistantID: 'a180cd12-34d5-439f-affe-d1ebf58acc20',
+      apikey: 'EkdNfLV4RZg5Lpe9EAgxhwGp33nMA38umuFhCovVStYh',
+      assistantID: 'd092e7e1-f048-4a79-8d85-6d2462faf3d8',
       url:
-          'https://api.eu-gb.assistant.watson.cloud.ibm.com/instances/9976a122-9202-401b-959d-e336aca09e0e/v2'
+          'https://api.eu-gb.assistant.watson.cloud.ibm.com/instances/5d8f88f5-56b8-467a-a9e1-178e5416f80b/v2'
       // url: 'https://gateway-lon.watsonplatform.net/assistant/api/v2',
       );
 
@@ -149,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     itemBuilder: (context, index) => chattingBubble(
                       messsages[index]["message"].toString(),
                       messsages[index]["data"],
+                      "assets/images/MumBot3.png",
                     ),
                     itemCount: messsages.length,
                   ),

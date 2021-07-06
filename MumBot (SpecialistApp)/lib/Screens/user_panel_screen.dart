@@ -53,7 +53,7 @@ class _UserPanelScreenState extends State<UserPanelScreen> {
                 AssetImage("assets/images/Chat.png"),
                 '        You have a new chat \n                   request',
                 'Start Session', () {
-              Navigator.of(context).pushReplacementNamed(ChatScreen.routeName);
+              Navigator.of(context).pushNamed(ChatScreen.routeName);
             }),
             PanelCards(
                 'Video Sessions',

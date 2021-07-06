@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:mumbot_v2/api/parent_api.dart';
 import 'package:mumbot_v2/models/parent.dart';
 import 'package:mumbot_v2/screens/login_screen.dart';
+import 'package:mumbot_v2/screens/user_panel_screen.dart';
 import 'package:mumbot_v2/widgets/constants.dart';
 import 'package:mumbot_v2/widgets/LineDivider.dart';
 
@@ -160,13 +161,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           _finalNameController.text,
                           _finalEmailController.text,
                           _finalPhoneController.text);
+                      Navigator.of(context)
+                          .pushReplacementNamed(UserPanelScreen.routeName);
                     });
                     ScaffoldMessenger.of(context)
                         .showSnackBar(successEditintProfileSnackBar);
                   }
-                  _finalNameController.clear();
-                  _finalEmailController.clear();
-                  _finalPhoneController.clear();
+                  // _finalNameController.clear();
+                  // _finalEmailController.clear();
+                  // _finalPhoneController.clear();
                 },
               ),
               SizedBox(height: size.height * 0.01),

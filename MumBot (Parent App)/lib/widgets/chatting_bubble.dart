@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bubble/bubble.dart';
 
-Widget chattingBubble(String message, int data) {
+Widget chattingBubble(String message, int data, String image) {
   return Container(
     child: Row(
       mainAxisAlignment:
@@ -9,10 +9,11 @@ Widget chattingBubble(String message, int data) {
       children: [
         data == 0
             ? Container(
+                padding: EdgeInsets.all(5),
                 height: 60,
                 width: 60,
                 child: CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/MumBot3.png"),
+                  backgroundImage: AssetImage(image),
                 ),
               )
             : Container(),
@@ -45,6 +46,7 @@ Widget chattingBubble(String message, int data) {
         ),
         data == 1
             ? Container(
+                padding: EdgeInsets.all(5),
                 height: 60,
                 width: 60,
                 child: CircleAvatar(
